@@ -1,3 +1,5 @@
+
+
 module.exports = function(sequelize, DataTypes) {
     var Rating = sequelize.define("Rating", {
       user_id: {
@@ -12,8 +14,8 @@ module.exports = function(sequelize, DataTypes) {
       rating: DataTypes.INTEGER
     });
   
-    Post.associate = function(models) {
-      Post.belongsTo(models.User, {
+    Rating.associate = function(models) {
+      Rating.belongsTo(models.User, {
         foreignKey: {
           allowNull: false
         }
