@@ -1,0 +1,313 @@
+/* font-family: 'Roboto', sans-serif;
+font-family: 'Open Sans', sans-serif;
+font-family: 'Alfa Slab One', cursive; 
+font-family: 'Roboto Condensed', sans-serif;
+font-family: 'Titan One', cursive;
+*/
+
+/* $blue:    #007bff !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #e83e8c !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #28a745 !default;
+$teal:    #20c997 !default;
+$cyan:    #17a2b8 !default;
+
+$colors: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$colors: map-merge(
+  (
+    "blue":       $blue,
+    "indigo":     $indigo,
+    "purple":     $purple,
+    "pink":       $pink,
+    "red":        $red,
+    "orange":     $orange,
+    "yellow":     $yellow,
+    "green":      $green,
+    "teal":       $teal,
+    "cyan":       $cyan,
+    "white":      $white,
+    "gray":       $gray-600,
+    "gray-dark":  $gray-800
+  ),
+  $colors
+);
+
+$primary:       $blue !default;
+$secondary:     $gray-600 !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default; */
+
+body {
+
+	color: #333;
+	font-family: 'Roboto Condensed', sans-serif;
+	margin: 0;
+	background: #eee;
+
+	/* background: #000; */
+	
+	background: url("../images/krists-luhaers-543526-unsplash.jpg") no-repeat center center fixed; 
+	background-size: cover;
+	height: 100vh;
+	box-sizing: initial;
+
+	--badmovie: #9C0D38;
+	--goodmovie: #8EA604;
+	--neumovie: #5F0F40;
+	--warnmovie: #F75C03;
+	--keycolor: #337CA0;
+
+	--badmoviebg: rgba(156, 13, 56, 0.9);
+	--goodmoviebg: rgba(142, 166, 4, 0.9);
+	--neumoviebg: rgba(95, 15, 64, 0.9);
+	--warnmoviebg:rgba(247, 92, 3, 0.9);
+	--keycolorbg: rgba(51, 124, 160, 0.9);
+}
+
+.whiteTxt {
+	color: white;
+}
+
+#movieColorBad{
+	background: linear-gradient(rgba(156, 13, 56, 0.9), rgba(156, 13, 56, 0.9)),
+	url("../images/krists-luhaers-543526-unsplash.jpg") no-repeat center center fixed; 
+	background-size: cover;
+	/* height: 100vh;
+	box-sizing: initial; */
+}
+
+#movieColorKey{
+	background: linear-gradient(rgba(142, 166, 4, 0.9), rgba(142, 166, 4, 0.9)),
+	url("../images/krists-luhaers-543526-unsplash.jpg") no-repeat center center fixed; 
+	background-size: cover;
+	/* height: 100vh;
+	box-sizing: initial; */
+}
+
+#movieColorNeutral{
+	background: linear-gradient(rgba(95, 15, 64, 0.9), rgba(95, 15, 64, 0.9)),
+	url("../images/krists-luhaers-543526-unsplash.jpg") no-repeat center center fixed; 
+	background-size: cover;
+	/* height: 100vh;
+	box-sizing: initial; */
+}
+
+#movieColorWarning{
+	background: linear-gradient(rgba(247, 92, 3, 0.9), rgba(247, 92, 3, 0.9)),
+	url("../images/krists-luhaers-543526-unsplash.jpg") no-repeat center center fixed; 
+	background-size: cover;
+	/* height: 100vh;
+	box-sizing: initial; */
+}
+
+#movieColorGood{
+	background: linear-gradient(rgba(51, 124, 160, 0.9), rgba(51, 124, 160, 0.9)),
+	url("../images/krists-luhaers-543526-unsplash.jpg") no-repeat center center fixed; 
+	background-size: cover;
+	/* height: 100vh;
+	box-sizing: initial; */
+}
+
+
+#loginButton {
+	max-height: 55px;
+	max-width: auto;
+	border-radius: 50%;
+	background-color: #337CA0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: #337CA0;
+}
+
+/* header {
+	margin-bottom: 15vh;
+} */
+
+#mainPageSplash {
+	max-width: 90%;
+	max-height: auto;
+	background: rgba(0, 0, 0, 0.5);
+	border-style: solid;
+	border-radius: 50%;
+	border-color: rgba(0, 0, 0, 0.5);
+	border-width: 10px;
+}
+
+#title {
+	height: 200px;
+	width: auto;
+	display: block;
+	align-items: center;
+	margin-top: 4vh;
+	margin-bottom: 4vh;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#searchBar {
+	border-radius: 2rem;
+	overflow: hidden;
+	border: 1px white solid;
+}
+
+.fa-search {
+	color:white;
+}
+
+#searchBlack {
+	color: white;
+	background-color:  rgba(0, 0, 0, 0.75);
+	border: 0px;
+}
+
+#searchBlack:active{
+    outline:0px !important;
+    -webkit-appearance:none;
+}
+
+#searchBlack:focus{
+    outline:0px !important;
+    -webkit-appearance:none;
+}
+
+#searchBlack:hover{
+	outline:0px !important;
+    -webkit-appearance:none;
+}
+
+.form-control:focus{
+    border-color: #cccccc;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.wrapper {
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+.nowrap {
+	white-space: nowrap;
+	display: inline;
+}
+
+.overflowEllipsis{
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+#splashPageHeader {
+	background-color:  rgba(0, 0, 0, 0.75);
+	height: 10vh;
+	margin-bottom: 17vh; 
+	padding-right: 5%;
+}
+
+#contentPageHeader {
+	background-color:  rgba(0, 0, 0, 0.75);
+	height: 10vh;
+	margin-bottom: 5rem; 
+	padding-right: 5%;
+}
+
+#dialGraphRow {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+#limitImage {
+	max-width: 100%;
+	max-height: auto;
+}
+
+#splashPageFooter {
+	background-color:  rgba(0, 0, 0, 0.75);
+	height: 25vh;
+	margin-top:10vh;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	padding-top: 10vh;
+}
+
+#btn-apple {
+	background-color: #8EA604;
+	color:white;
+	width: 100%;
+}
+
+#btn-crimson {
+	background-color: #9C0D38;
+	color:white;
+	width: 100%;
+	padding: 5px;
+}
+
+#btn-orange {
+	background-color: #F75C03;
+	color:white;
+	width: 100%;
+	padding: 5px;
+}
+
+#btn-blue {
+	background-color: #337CA0;
+	color:white;
+	width: 100%;
+	padding: 5px;
+}
+
+#btn-purple {
+	background-color: #5F0F40;
+	color:white;
+	width: 100%;
+	padding: 5px;
+}
+
+@-webkit-keyframes rollIn {
+	from {
+	  opacity: 0;
+	  -webkit-transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
+	  transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
+	}
+  
+	to {
+	  opacity: 1;
+	  -webkit-transform: translate3d(0, 0, 0);
+	  transform: translate3d(0, 0, 0);
+	}
+  }
+  
+  @keyframes rollIn {
+	from {
+	  opacity: 0;
+	  -webkit-transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
+	  transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
+	}
+  
+	to {
+	  opacity: 1;
+	  -webkit-transform: translate3d(0, 0, 0);
+	  transform: translate3d(0, 0, 0);
+	}
+  }
+  
+  .rollIn {
+	-webkit-animation-name: rollIn;
+	animation-name: rollIn;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	animation-delay: 1s;
+  }
