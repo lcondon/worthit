@@ -1,0 +1,41 @@
+<header>
+	{{!-- <h1>Eat Da Burger!</h1> --}}
+  <img id="title" src="../assets/images/title2.png">
+</header>
+<div class="wrapper">
+	<div id="burgerCapture">
+		<form action="/" method="POST">
+			<input id="burgerName" type="text" name="burger_name" placeholder="Create a burger">
+			<button id="submitBtn" type="submit">Add Burger</button>
+		</form>
+	</div>
+
+	<div id="burgerWrapper">
+		<div id="availableBurgs">
+			<h2>Burgers Up</h2>
+			{{#each burgers}}
+				{{#unless this.devoured}}
+				  <div class="burger">
+					<span>{{id}}</span> {{burger_name}} 
+                    <form class="eatDatBurger" action="/{{id}}?_method=PUT" method="POST">
+				  		<button class="eatMe">EAT</button>
+				    </form>
+				  </div>
+				{{/unless}}
+			{{/each}}
+		</div>
+		<div id="eatenBurgs">
+			<h2>Burgers Eaten</h2>
+			{{#each burgers}}
+				{{#if this.devoured}}
+				  <div class="burger"><span>{{id}}</span>  {{burger_name}}</div>
+				{{/if}}
+			{{/each}}
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<p>Andrew Babb • <a href="https://github.com/wmandrewbabb/eatdaburger">GitHub Repository</a></p>
+	</div>
+</footer>

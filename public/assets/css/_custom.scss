@@ -1,0 +1,18 @@
+$theme-colors: (
+
+
+"warning": #F75C03,
+"primary": #337CA0,
+"secondary": #8EA604,
+"danger": #9C0D38,
+"info": #5F0F40
+
+);
+
+$warning: #F75C03;
+$primary: #337CA0;
+$secondary: #8EA604;
+$danger: #9C0D38;
+$info: #5F0F40;
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";
