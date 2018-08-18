@@ -26,8 +26,9 @@ app.engine("handlebars", bars({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
 // Routes
-app.use('/', htmlRouter);
 app.use('/api', apiRouter);
+app.use('/', htmlRouter);
+
 
 var syncOptions = { force: true };
 

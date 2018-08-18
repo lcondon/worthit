@@ -1,5 +1,10 @@
 module.exports = function(sequelize, DataTypes) {
     var Movie = sequelize.define("Movie", {
+      routeName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
       title: {
         type: DataTypes.STRING,
         allowNull: false,
