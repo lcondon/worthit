@@ -1,42 +1,137 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Worth It?</title>
-	<link rel="stylesheet" type="text/css" href="public/assets/css/reset.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Open+Sans|Roboto|Titan+One|Roboto+Condensed" rel="stylesheet">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-	<link rel="stylesheet" href="public/assets/css/style.css" type="text/css">
+    <title>Worth It?</title>
+    <link rel="stylesheet" type="text/css" href="public/assets/css/reset.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Open+Sans|Roboto|Titan+One|Roboto+Condensed|Lato" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./public/assets/css/style.css" type="text/css">
 </head>
 
-<body id="movieColorNeutral" class="whiteTxt">
-	<nav class="navbar nav" id="contentPageHeader">
-		<span class="ml-auto"><img id="loginButton" src="public/assets/images/plus.png"></span>
-	</nav>
+<style id="criticKeyframe">
+    @keyframes criticLoad {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+    }
+</style>
 
-	<div class="container-fluid">
+<style id = "criticSwitch">
+    .progress.critic .progress-left .progress-bar{
+    animation: criticLoad 1.5s linear forwards 1.8s;
+}
+</style>
+
+<style id = "generalKeyframe">
+    @keyframes generalLoad{
+    0%{
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100%{
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+}
+</style>
+
+<style id = "generalSwitch">
+    .progress.general .progress-left .progress-bar{
+    animation: generalLoad 1s linear forwards 1.8s;
+}
+</style>
+
+<style id = "userKeyframe">
+@keyframes userLoad{
+    0%{
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100%{
+        -webkit-transform: rotate(36deg);
+        transform: rotate(36deg);
+    }
+}
+</style>
+
+<style id = "userSwitch">
+    .progress.users .progress-left .progress-bar{
+    animation: userLoad 0.4s linear forwards 1.8s;
+}
+</style>
+
+
+
+
+
+<body id="movieColorNeutral" class="whiteTxt">
+    <nav class="navbar nav" id="contentPageHeader">
+        <span class="ml-auto">
+            <img id="loginButton" src="public/assets/images/plus.png">
+        </span>
+    </nav>
+
+    <div class="container-fluid">
         <div class="row" id="reviewRow">
             <div class="col-sm-2"></div>
-            <div class="col-sm-2 justify-content-center">
-                <img src="http://via.placeholder.com/300x450" class="center-block img-fluid" alt="Responsive image">
+            <div class="col-sm-3 justify-content-center">
+                <img src="http://image.tmdb.org/t/p/w300/u6QBDGUCOEMRekna95ip2MxplbQ.jpg" class="center-block img-fluid" alt="Responsive image">
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-5">
+                <h1 class="nowrap">Movie Title </h1>&nbsp
+                <h4 class="nowrap">(Year)</h4>
                 <hr>
-                <h1 class="nowrap">Movie Title </h1>&nbsp<h4 class="nowrap">(Year)</h4>
-                <hr>
-                <div class ="row justify-content-left" id="dialGraphRow">
-                    <div class = "col-3">
-                            <img src="http://via.placeholder.com/100x100" class="img-fluid" alt="Responsive image">
+                <div class="row">
+                    <div class="col-4">
+
+                        <div class="progress critic">
+                            <span class="progress-left">
+                                <span class="progress-bar"></span>
+                            </span>
+                            <span class="progress-right">
+                                <span class="progress-bar"></span>
+                            </span>
+                            <div class="progress-value" id = "criticCircle">90%</div>
+                        </div>
+
                     </div>
-                    <div class = "col-3">
-                            <img src="http://via.placeholder.com/100x100" class="img-fluid" alt="Responsive image">
+
+                    <div class="col-4">
+
+                        <div class="progress general">
+                            <span class="progress-left">
+                                <span class="progress-bar"></span>
+                            </span>
+                            <span class="progress-right">
+                                <span class="progress-bar"></span>
+                            </span>
+                            <div class="progress-value" id = "generalCircle">90%</div>
+                        </div>
+
                     </div>
-                    <div class = "col-3">
-                            <img src="http://via.placeholder.com/100x100" class="img-fluid" alt="Responsive image">
-                    </div>
-                    <div class = "col-3">
-                            <img src="http://via.placeholder.com/100x100" class="img-fluid" alt="Responsive image">
+
+                    <div class="col-4">
+
+                        <div class="progress users">
+                            <span class="progress-left">
+                                <span class="progress-bar"></span>
+                            </span>
+                            <span class="progress-right">
+                                <span class="progress-bar"></span>
+                            </span>
+                            <div class="progress-value" id = "userCircle">90%</div>
+                        </div>
+
                     </div>
                 </div>
                 <hr>
@@ -47,18 +142,15 @@
             <div class="col-sm-2"></div>
         </div>
         <hr>
-        <div class = "row" id="commentsRow">
+        <div class="row" id="commentsRow">
             <div class="col-sm-2"></div>
-            <div class = "col-sm-2">
-                    <img src="http://via.placeholder.com/300x100" class="img-fluid" alt="Responsive image">
+            <div class="col-sm-2">
+                <img src="http://via.placeholder.com/300x100" class="img-fluid" alt="Responsive image">
             </div>
-            <div class = "col-sm-6">reviews go here?</div>
+            <div class="col-sm-6">reviews go here?</div>
             <div class="col-sm-2"></div>
         </div>
     </div>
-
-
-
 
     <footer class="footer">
         <div class="container">
@@ -78,8 +170,7 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-</div>        
+    </div>
+    <script src="./public/js/fiddle.js"></script>
 </body>
-
-
 </html>

@@ -1,15 +1,16 @@
 const express = require('express');
 const passport = require('passport');
 const db = require("../models");
+const path = require('path');
 const htmlRouter = express.Router();
 
   // Load index page
-  htmlRouter.get("/", function (req, res) {
-    res.send("u did it");
+  htmlRouter.get(["/", '/home', '/index'], function (req, res) {
+    res.sendFile(path.join(__dirname + "/../index.html"));
   });
 
   htmlRouter.get("/login", function (req, res) {
-    res.send("nope try again");
+    res.sendFile(path.join(__dirname + "/../index.html"));
   });
   
   htmlRouter.post('/login', 
@@ -31,11 +32,6 @@ const htmlRouter = express.Router();
   });
   });
 
-  htmlRouter.get("/shots", function (req, res) {
-
-    res.send(":(");
-  });
-
   htmlRouter.get("/gotem", function (req, res) {
     // db.Example.findAll({}).then(function (dbExamples) {
     //   res.render("index", {
@@ -55,7 +51,7 @@ const htmlRouter = express.Router();
     }
   })
 
-  app.get('/logout', function(req, res){
+  htmlRouter.get('/logout', function(req, res){
     req.logout();
     res.redirect('/');
   });
@@ -70,8 +66,8 @@ const htmlRouter = express.Router();
   });
 
   // Render 404 page for any unmatched routes
-  htmlRouter.get("*", function (req, res) {
-    res.render("404");
-  });
+  // htmlRouter.get("*", function (req, res) {
+  //   res.render("404");
+  // });
 
   module.exports = htmlRouter;
