@@ -5,9 +5,11 @@ const path = require('path');
 const apiRouter = express.Router();
 const request = require('request');
 var _ = require('lodash');
+var moment = require('moment');
 
 // Get all examples
 apiRouter.get("/movies", function (req, res) {
+
   if (req.query.s) {
     db.Movie.findOne({ where: { title: req.query.s } }).then(function (results) {
       if (results) {
@@ -54,23 +56,30 @@ apiRouter.get("/users", function (req, res) {
     db.User.findOne({ where: { id: req.query.s } }).then(function (results) {
       res.json({
         id: results.id,
+        name: results.name,
         email: results.email,
         'watch list': results.watchList,
-        favorites: results.favorites
+        favorites: results.favorites,
+        createdAt: results.createdAt,
+        updatedAt: results.updatedAt
       });
     })
   } else {
     db.User.findAll({}).then(function (results) {
       var viewObj = [];
-      for (var i = 0; i < results.length; i++){
+      for (var i = 0; i < results.length; i++) {
         var user = {
           id: results[i].id,
+          name: results[i].name,
           email: results[i].email,
           'watch list': results[i].watchList,
-          favorites: results[i].favorites
+          favorites: results[i].favorites,
+          createdAt: results[i].createdAt,
+          updatedAt: results[i].updatedAt
         }
+        viewObj.push(user);
       }
-      res.json(results);
+      res.json(viewObj);
     });
   }
 });
@@ -91,6 +100,5 @@ apiRouter.delete("/users/:id", function (req, res) {
     res.json(results);
   });
 });
-
 
 module.exports = apiRouter;
