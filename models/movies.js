@@ -17,18 +17,30 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      routeName: {
+      genres: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
+      },
+      languages: {
+        type: DataTypes.STRING,
+        allowNull: false
       },
       director: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
       },
       actors: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
       },
+      poster: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }, 
+      ratings : {
+        type: DataTypes.JSON,
+        allowNull: false
+      }
     });
   
     return Movie;
