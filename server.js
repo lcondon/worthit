@@ -4,7 +4,6 @@ var bodyParser = require("body-parser");
 var bars = require("express-handlebars");
 var passport = require('passport');
 
-var _ = require('lodash');
 var moment = require('moment');
 moment().format();
 
