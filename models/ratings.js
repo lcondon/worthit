@@ -1,4 +1,4 @@
-
+var moment = require('moment');
 
 module.exports = function(sequelize, DataTypes) {
     var Rating = sequelize.define("Rating", {
@@ -11,7 +11,21 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       },
       comment: DataTypes.TEXT,
-      rating: DataTypes.INTEGER
+      rating: DataTypes.INTEGER,
+      createdAt: {
+        type: DataTypes.DATE,
+        get() {
+          const creation = this.getDataValue('createdAt');
+          return moment(creation, moment.ISO_8601).format("dddd, MMMM Do YYYY, h:mm:ss a");
+        }
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        get() {
+          const creation = this.getDataValue('createdAt');
+          return moment(creation, moment.ISO_8601).format("dddd, MMMM Do YYYY, h:mm:ss a");
+        }
+      }
     });
   
     Rating.associate = function(models) {

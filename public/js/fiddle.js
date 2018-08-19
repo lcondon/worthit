@@ -53,7 +53,7 @@ function changeUser() {
 }
 
 $(document).ready(
-    getCriticScore(34, changeCritic),
-    getGeneralScore(56, changeGeneral),
-    getUserScore(89, changeUser),
+    getCriticScore(54, changeCritic),
+    getGeneralScore(13, changeGeneral),
+    getUserScore(49, changeUser),
 )

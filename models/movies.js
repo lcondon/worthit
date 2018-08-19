@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 module.exports = function(sequelize, DataTypes) {
     var Movie = sequelize.define("Movie", {
       routeName: {
@@ -40,6 +42,20 @@ module.exports = function(sequelize, DataTypes) {
       ratings : {
         type: DataTypes.JSON,
         allowNull: false
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        get() {
+          const creation = this.getDataValue('createdAt');
+          return moment(creation, moment.ISO_8601).format("dddd, MMMM Do YYYY, h:mm:ss a");
+        }
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        get() {
+          const creation = this.getDataValue('createdAt');
+          return moment(creation, moment.ISO_8601).format("dddd, MMMM Do YYYY, h:mm:ss a");
+        }
       }
     });
   

@@ -4,9 +4,6 @@ var bodyParser = require("body-parser");
 var bars = require("express-handlebars");
 var passport = require('passport');
 
-var moment = require('moment');
-moment().format();
-
 var db = require("./models");
 var PORT = process.env.PORT || 8800;
 
@@ -28,9 +25,7 @@ app.set("view engine", "handlebars");
 app.use('/api', apiRouter);
 app.use('/', htmlRouter);
 
-
 var syncOptions = { force: true };
-
 
 db.sequelize.sync().then(function () {
   app.listen(PORT, function () {

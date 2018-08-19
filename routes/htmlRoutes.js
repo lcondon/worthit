@@ -16,15 +16,13 @@ htmlRouter.get("/login", function (req, res) {
 
 htmlRouter.post('/login',
   passport.authenticate('local', {
-    successRedirect: '/gotem',
-    failureRedirect: '/shots',
+    successRedirect: '/favorites',
+    failureRedirect: '/login',
     failureFlash: true
   })
 );
 
-
-
-htmlRouter.get("/gotem", function (req, res) {
+htmlRouter.get("/favorites", function (req, res) {
   // db.Example.findAll({}).then(function (dbExamples) {
   //   res.render("index", {
   //     msg: "Welcome!",
