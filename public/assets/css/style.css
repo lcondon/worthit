@@ -21,6 +21,7 @@ body {
 	--neumoviebg: rgba(95, 15, 64, 0.9);
 	--warnmoviebg:rgba(247, 92, 3, 0.9);
 	--keycolorbg: rgba(51, 124, 160, 0.9);
+	font-size:16px;
 }
 
 .whiteTxt {
@@ -130,6 +131,8 @@ ul a:hover, a:active{
 
 .fa-star {
 	color: white;
+	font-size: 3rem;
+	
 }
 
 .favStar {
@@ -140,6 +143,18 @@ ul a:hover, a:active{
 	z-index: 2;
 
 }
+
+
+.rating-container .filled-stars{
+	color:goldenrod
+}
+
+#filledStar{
+	color:goldenrod
+}
+
+.glyphicon
+
 
 #favorited {
 	color: goldenrod;
@@ -232,10 +247,26 @@ ul a:hover, a:active{
 	padding-top: 10vh;
 }
 
+#commentsRow {
+	margin-bottom: 2rem;
+	margin-top: 1rem;
+}
+
+button {
+	font-size:12;
+}
+
+#reviewRow {
+	margin-top: 2rem;
+	margin-bottom: 4rem;
+}
+
 #btn-apple {
 	background-color: #8EA604;
 	color:white;
 	width: 100%;
+	font-size: 12pt;
+
 }
 
 #btn-crimson {
@@ -243,6 +274,8 @@ ul a:hover, a:active{
 	color:white;
 	width: 100%;
 	padding: 5px;
+	font-size: 12pt;
+
 }
 
 #btn-orange {
@@ -250,6 +283,8 @@ ul a:hover, a:active{
 	color:white;
 	width: 100%;
 	padding: 5px;
+	font-size: 12pt;
+
 }
 
 #btn-blue {
@@ -257,6 +292,7 @@ ul a:hover, a:active{
 	color:white;
 	width: 100%;
 	padding: 5px;
+	font-size: 12pt;
 }
 
 #btn-purple {
@@ -264,6 +300,8 @@ ul a:hover, a:active{
 	color:white;
 	width: 100%;
 	padding: 5px;
+	font-size: 12pt;
+
 }
 
 @-webkit-keyframes rollIn {
