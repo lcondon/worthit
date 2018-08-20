@@ -141,6 +141,7 @@ ul a:hover, a:active{
 	top: 5px;
 	cursor: pointer;
 	z-index: 2;
+	color: #333;
 
 }
 
