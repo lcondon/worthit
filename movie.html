@@ -2,28 +2,15 @@
 <html>
 
 <head>
-
-	<title>Worth It?</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+    <title>Worth It?</title>
     <link rel="stylesheet" type="text/css" href="public/assets/css/reset.css">
-
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
-    <link href="public/assets/bootstrap-star-rating/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
-
-    
-    <link href="public/assets/bootstrap-star-rating/themes/krajee-fa/theme.css" media="all" rel="stylesheet" type="text/css" />
-    <script src="public/assets/bootstrap-star-rating/themes/krajee-fa/theme.js"></script>
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Open+Sans|Roboto|Titan+One|Roboto+Condensed|Lato" rel="stylesheet">
-
-
-    <link rel="stylesheet" href="public/assets/css/style.css" type="text/css">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./public/assets/css/style.css" type="text/css">
 </head>
 
 <style id="criticKeyframe">
@@ -88,17 +75,16 @@
 
 
 <body id="movieColorNeutral" class="whiteTxt">
-
-	<nav class="navbar nav" id="contentPageHeader">
-            <span><img id="headerImg" src="public/assets/images/worthitinverted.png"></span><span class="ml-auto"><img id="loginButton" src="public/assets/images/plus.png"></span>
-        </nav>
-
+    <nav class="navbar nav" id="contentPageHeader">
+        <span class="ml-auto">
+            <img id="loginButton" src="public/assets/images/plus.png">
+        </span>
+    </nav>
 
     <div class="container-fluid">
         <div class="row" id="reviewRow">
             <div class="col-sm-2"></div>
             <div class="col-sm-3 justify-content-center">
-
                 <img src="http://image.tmdb.org/t/p/w300/u6QBDGUCOEMRekna95ip2MxplbQ.jpg" class="center-block img-fluid" alt="Responsive image">
             </div>
             <div class="col-sm-5">
@@ -117,7 +103,6 @@
                             </span>
                             <div class="progress-value" id = "criticCircle">90%</div>
                         </div>
-
 
                     </div>
 
@@ -157,44 +142,13 @@
             <div class="col-sm-2"></div>
         </div>
         <hr>
-
-
-        <div class = "row" id="reviewRow">
+        <div class="row" id="commentsRow">
             <div class="col-sm-2"></div>
-            <div class="col-sm-6">
-                <div class="status-upload">
-                        <form>
-                            <input id="input-id" name="input-name" type="number" data-stars="10" class="rating" min=0 max=10 step=.5 data-size="xs">
-                            <textarea class="w-100" placeholder="Did you think this movie was Worth it?" ></textarea>
-                            <button type="submit" class="btn btn-success green" id="btn-apple"><i class="fa fa-share"></i> Share</button>
-                        </form>
-                </div><!-- Status Upload  -->
-            </div>
             <div class="col-sm-2">
-                    <p>Let other users know what you thought of this movie!</p>
-                </div>
-            <div class="col-sm-2"></div>
-        </div>
-        <div class = "row" id="commentsRow">
-            <div class="col-sm-2"></div>
-            <div class = "col-sm-2">
-                    <p>
-                            <button class="btn btn-primary" id="btn-blue" type="button" data-toggle="collapse" data-target="#commentsBox" aria-expanded="false" aria-controls="commentsBox">
-                                    <i class="fas fa-comments"></i>&nbsp;Show Comments
-                            </button>
-                        </p>            </div>
-
-                <div class = "col-sm-6">
-                <div class="collapse" id="commentsBox">
-                    <div class="card card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                    </div>
-                </div>
+                <img src="http://via.placeholder.com/300x100" class="img-fluid" alt="Responsive image">
             </div>
-
+            <div class="col-sm-6">reviews go here?</div>
             <div class="col-sm-2"></div>
-            
-
         </div>
     </div>
 
@@ -212,23 +166,11 @@
     </footer>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-    <script src="public/assets/bootstrap-star-rating/js/star-rating.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-
-    
-    <!-- <script>
-
-    $("#input-id").rating({min:1, max:10, step:2, stars:10, size:'sm'});
-
-
-    </script> -->
-
-</div>        
-
+    </div>
     <script src="./public/js/fiddle.js"></script>
-
 </body>
 </html>
