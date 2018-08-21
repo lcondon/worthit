@@ -157,7 +157,7 @@ ul a:hover, a:active{
 .glyphicon
 
 
-#favorited {
+#favorited, .favorited {
 	color: goldenrod;
 }
 
