@@ -161,6 +161,10 @@ ul a:hover, a:active{
 	color:goldenrod;
 }
 
+input#input-id {
+    display: none;
+}
+
 .glyphicon
 
 
@@ -522,5 +526,15 @@ button {
 }
 
 @media only screen and (max-width: 990px){
-    .progress{ margin-bottom: 20px; }
+	*, ::after, ::before {
+		font-size: 20px;
+	};
+	.progress{ margin-bottom: 20px; };
 }
+
+@media only screen and (max-width: 1252px ) and ( min-width: 991px){
+    *, ::after, ::before {
+		font-size: 30px;
+	}
+}
+
