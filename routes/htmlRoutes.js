@@ -7,7 +7,13 @@ const request = require('request');
 
 // Load index page
 htmlRouter.get(["/", '/home', '/index'], function (req, res) {
-  res.sendFile(path.join(__dirname + "/../index.html"));
+  var obj = {}
+  if (req.isAuthenticated()){
+    obj.image = ''
+  } else {
+    obj.image = '/images/plus.png'
+  }
+  res.render('index', obj)
 });
 
 htmlRouter.get('/movies/categories', function(req, res){
@@ -24,7 +30,7 @@ htmlRouter.get('/movies/lu', function(req, res){
     criticScore: 64,
     generalScore: 71,
     worthItScore: 99,
-    poster: ''
+    poster: 'http://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg'
   })
 });
 

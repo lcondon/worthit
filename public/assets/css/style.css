@@ -168,7 +168,7 @@ input#input-id {
 .glyphicon
 
 
-#favorited {
+#favorited, .favorited {
 	color: goldenrod;
 }
 
