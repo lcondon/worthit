@@ -14,7 +14,7 @@ var app = express();
 
 // Middleware
 app.use(bodyParser.json());
-app.use(express.static("public"));
+app.use(express.static("public/assets"));
 app.use(bodyParser.urlencoded({ extended: true }));
 require('./config/passport')(app);
 // Handlebars

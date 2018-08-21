@@ -9,7 +9,6 @@
  * https://github.com/kartik-v/bootstrap-star-rating/blob/master/LICENSE.md
  */
 (function (factory) {
-    "use strict";
     //noinspection JSUnresolvedVariable
     if (typeof define === 'function' && define.amd) { // jshint ignore:line
         // AMD. Register as an anonymous module.

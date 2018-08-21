@@ -10,6 +10,24 @@ htmlRouter.get(["/", '/home', '/index'], function (req, res) {
   res.sendFile(path.join(__dirname + "/../index.html"));
 });
 
+htmlRouter.get('/movies/categories', function(req, res){
+  res.render('index')
+});
+
+htmlRouter.get('/movies/lu', function(req, res){
+  res.render('movie', {
+    title: '',
+    year: 1995,
+    director: '',
+    actors: '',
+    synopsis: '',
+    criticScore: 64,
+    generalScore: 71,
+    worthItScore: 99,
+    poster: ''
+  })
+});
+
 htmlRouter.get("/login", function (req, res) {
   res.sendFile(path.join(__dirname + "/../index.html"));
 });
