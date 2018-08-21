@@ -5,8 +5,8 @@
  * @see http://github.com/kartik-v/bootstrap-star-rating
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  */
+
 (function ($) {
-    "use strict";
     $.fn.ratingThemes['krajee-fa'] = {
         filledStar: '<i class="fa fa-star"></i>',
         emptyStar: '<i class="fa fa-star-o"></i>',

@@ -53,7 +53,7 @@ function changeUser() {
 }
 
 $(document).ready(
-    getCriticScore(54, changeCritic),
-    getGeneralScore(13, changeGeneral),
-    getUserScore(49, changeUser),
+    getCriticScore(parseFloat($("#criticCircle").attr("score")), changeCritic),
+    getGeneralScore(parseFloat($("#generalCircle").attr("score")), changeGeneral),
+    getUserScore(parseFloat($("#userCircle").attr("score")), changeUser),
 )
