@@ -47,8 +47,8 @@ module.exports = function (app) {
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });
         }
-        if (user){
-          if (password === creds.password){
+        if (user) {
+          if (password === creds.password) {
             return done(null, user);
           } else {
             return done(null, false, { msg: 'Invalid password.' });
