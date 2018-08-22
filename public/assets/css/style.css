@@ -484,6 +484,10 @@ button {
 	border-color: #1CA347;
 }
 
+.bTxt {
+	color: black;
+}
+
 @-webkit-keyframes rollIn {
 	from {
 	  opacity: 0;
