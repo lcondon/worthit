@@ -9,15 +9,32 @@ var moment = require('moment');
 
 // Get all examples
 apiRouter.get("/movies", function (req, res) {
-
   if (req.query.s) {
-    db.Movie.findOne({ where: { title: req.query.s } }).then(function (results) {
+    db.Movie.findOne({ where: { routeName: _.camelCase(req.query.s) } }).then(function (results) {
+      if (results) {
+        res.json(results)
+      } else {
+        res.json(false)
+      }
+    })
+  } else {
+    db.Movie.findAll().then(function (results) {
+      res.json(results)
+    })
+  }
+});
+
+apiRouter.post('/movies', function (req, res) {
+  if (req.query.s) {
+    db.Movie.findOne({ where: { routeName: _.camelCase(req.query.s) } }).then(function (results) {
       if (results) {
         res.json(results)
       } else {
         request({ url: 'http://www.omdbapi.com/?apikey=trilogy&t=' + req.query.s }, function (err, response, body) {
           var bod = JSON.parse(body);
-
+          if (bod.Error) {
+            res.json(false);
+          }
           request({ url: 'https://api.themoviedb.org/3/search/movie?api_key=365d042eea4b6512c2758153d858bb83&query=' + req.query.s }, function (err2, response2, body2) {
             var bod2 = JSON.parse(body2);
             var movie = bod2.results[0];
@@ -49,7 +66,7 @@ apiRouter.get("/movies", function (req, res) {
       res.json(results)
     })
   }
-});
+})
 
 apiRouter.get("/users", function (req, res) {
   if (req.query.s) {

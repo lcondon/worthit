@@ -8,7 +8,7 @@ const request = require('request');
 // Load index page
 htmlRouter.get(["/", '/home', '/index'], function (req, res) {
   var obj = {}
-  if (req.isAuthenticated()){
+  if (req.isAuthenticated()) {
     obj.image = ''
   } else {
     obj.image = '/images/plus.png'
@@ -16,22 +16,27 @@ htmlRouter.get(["/", '/home', '/index'], function (req, res) {
   res.render('index', obj)
 });
 
-htmlRouter.get('/movies/categories', function(req, res){
-  res.render('index')
+htmlRouter.get('/movies/categories', function (req, res) {
+  res.render('categories')
+  // res.sendFile(path.join(__dirname + "/../categorieslist.html"));
 });
 
-htmlRouter.get('/movies/lu', function(req, res){
-  res.render('movie', {
-    title: '',
-    year: 1995,
-    director: '',
-    actors: '',
-    synopsis: '',
-    criticScore: 64,
-    generalScore: 71,
-    worthItScore: 99,
-    poster: 'http://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg'
-  })
+htmlRouter.get('/movies', function (req, res) {
+  if (req.query.s) {
+    res.render('movie', {
+      title: '',
+      year: 1995,
+      director: '',
+      actors: '',
+      synopsis: '',
+      criticScore: 64,
+      generalScore: 71,
+      worthItScore: 99,
+      poster: 'http://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg'
+    })
+  } else {
+
+  }
 });
 
 htmlRouter.get("/login", function (req, res) {
