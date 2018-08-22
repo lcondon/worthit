@@ -449,6 +449,8 @@ button {
 	padding: 14px 0;
 	text-transform: uppercase;
 	border-color: #59B2E6;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 .btn-login:hover,
 .btn-login:focus {
@@ -476,6 +478,8 @@ button {
 	padding: 14px 0;
 	text-transform: uppercase;
 	border-color: #1CB94A;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 .btn-register:hover,
 .btn-register:focus {
@@ -486,6 +490,10 @@ button {
 
 .bTxt {
 	color: black;
+}
+
+.formSpace {
+	margin-top: 20px;
 }
 
 @-webkit-keyframes rollIn {
