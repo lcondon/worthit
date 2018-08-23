@@ -1,0 +1,43 @@
+<body id="movieColorKey" class="whiteTxt">
+    <nav class="navbar nav" id="contentPageHeader">
+        <span>
+            <img id="headerImg" src="public/assets/images/worthitinverted.png">
+        </span>
+        <span class="ml-auto">
+            <img id="loginButton" src="public/assets/images/plus.png">
+        </span>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <h1 id="searchTitle">Search Type Title</h1>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+
+        {{#each movies}}
+        <div class="row" id="searchResultsRow">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8 justify-content-center">
+                <div class="row w-100" id="searchResultsReturns">
+                    <div class="col-sm-3 image-cropper align-self-center">
+                        <img class="image-fluid" src="http://image.tmdb.org/t/p/w300/u6QBDGUCOEMRekna95ip2MxplbQ.jpg">
+                    </div>
+                    <div class="col-sm-9 align-self-center">
+                        <p class="nowrap" id="searchResultsOrdinal">{{number}}.</p>&nbsp;&nbsp;&nbsp;
+                        <p class="nowrap">Movie Title:{{title}}</p>&nbsp;&nbsp;&nbsp;
+                        {{#each ratings}}
+                        <p class="nowrap">Critic Rating:{{cRating}}</p>&nbsp;&nbsp;&nbsp;
+                        <p class="nowrap">General Audience Rating:{{gRating}}</p>
+                        <p>Plot Summary:{{summary}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+        {{/each}}
+    </div>
+    </div>
+</body>
