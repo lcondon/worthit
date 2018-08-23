@@ -1,5 +1,5 @@
 {
-  "name": "node-handlebars-boilerplate",
+  "name": "handlebars-boilerplate",
   "version": "1.0.0",
   "description": "Project 2 Starter",
   "main": "server.js",
@@ -30,6 +30,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "popper.js": "^1.14.4",
+    "request": "^2.88.0",
     "sequelize": "^4.38.0"
   },
   "devDependencies": {
@@ -40,5 +41,14 @@
     "eslint-plugin-prettier": "^2.6.2",
     "mocha": "^5.2.0",
     "prettier": "^1.13.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lcondon/worthit.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/lcondon/worthit/issues"
+  },
+  "homepage": "https://github.com/lcondon/worthit#readme"
 }
