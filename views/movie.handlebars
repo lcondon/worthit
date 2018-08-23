@@ -169,10 +169,14 @@
 
             <div class="col-sm-6">
                 <div class="collapse" id="commentsBox">
+                    {{#each comments}}
                     <div class="card card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica,
-                        craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                        {{body}} {{time}} {{user}}
+                        <div class="card-footer text-muted">
+                           <span class="align-self-start">{{time}}</span>  <span class="align-self-end">{{author}}</span>
+                        </div>
                     </div>
+                    {{/each}}
                 </div>
             </div>
 

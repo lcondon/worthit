@@ -57,3 +57,11 @@ $(document).ready(
     getGeneralScore(parseFloat($("#generalCircle").attr("score")), changeGeneral),
     getUserScore(parseFloat($("#userCircle").attr("score")), changeUser),
 )
+
+$('#searchBlack').keyup(function(e) {
+    if (e.which == 13) {
+        if ($('#searchBlack').val() !== ''){
+            
+        }
+    }
+});
