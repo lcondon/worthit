@@ -1,3 +1,5 @@
+@import url(https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
+
 body {
 
 	color: #333;
@@ -537,6 +539,98 @@ button {
 	animation-fill-mode: both;
 	animation-delay: 1s;
   }
+
+  /*thumbs-up & down for worthit*/
+
+  input[type=radio].with-thumbsup {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+    
+input[type=radio].with-thumbsup ~ label:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f164";
+    letter-spacing: 10px;
+    font-size: 3.2em;
+    color: #fff;
+	width: 1.2em;
+	-webkit-text-stroke: #000 1px;
+}
+
+input[type=radio].with-thumbsup:checked ~ label:before {
+    content: "\f164";
+    font-size: 3.2em;
+    color: goldenrod;
+	letter-spacing: 5px;
+	-webkit-text-stroke: #000 1px;
+
+}
+
+input[type=radio].with-thumbsup:focus ~ label:before,
+input[type=radio].with-thumbsup:focus ~ label
+{                
+    color: goldenrod;
+}
+
+input[type=radio].with-thumbsdown {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+    
+input[type=radio].with-thumbsdown ~ label:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f165";
+    letter-spacing: 10px;
+    font-size: 3.2em;
+    color: #fff;
+	width: 1.2em;
+	-webkit-text-stroke: #000 1px;
+	-moz-transform: scale(-1, 1);
+	-webkit-transform: scale(-1, 1);
+	-o-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
+	transform: scale(-1, 1);
+}
+
+input[type=radio].with-thumbsdown:checked ~ label:before {
+    content: "\f165";
+    font-size: 3.2em;
+    color: goldenrod;
+	letter-spacing: 5px;
+	-webkit-text-stroke: #000 1px;
+	-moz-transform: scale(-1, 1);
+	-webkit-transform: scale(-1, 1);
+	-o-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
+	transform: scale(-1, 1);
+}
+
+input[type=radio].with-thumbsdown:focus ~ label:before,
+input[type=radio].with-thumbsdown:focus ~ label
+{                
+    color: goldenrod;
+}
+
+#labelPInput {
+	margin-right: 0px;
+	font-family: 'Alfa Slab One', cursive;
+	font-size: 2.2em;
+	-webkit-text-stroke: #000 1px;
+}
 
   /* heres when i break things */
 
