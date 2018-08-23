@@ -31,28 +31,40 @@ apiRouter.post('/movies', function (req, res) {
         res.json(results)
       } else {
         request({ url: 'http://www.omdbapi.com/?apikey=trilogy&t=' + req.query.s }, function (err, response, body) {
-          var bod = JSON.parse(body);
-          if (bod.Error) {
+          var body1 = JSON.parse(body);
+          if (body1.Error) {
             res.json(false);
           }
-          request({ url: 'https://api.themoviedb.org/3/search/movie?api_key=365d042eea4b6512c2758153d858bb83&query=' + req.query.s }, function (err2, response2, body2) {
-            var bod2 = JSON.parse(body2);
-            var movie = bod2.results[0];
+          var urlTitle = _.split(body1.Title, " ").join('-');
+          var options = {
+            url: 'https://api-marcalencc-metacritic-v1.p.mashape.com/movie/' + urlTitle,
+            headers: {
+              "X-Mashape-Key": "TEDXKda4HhmshcRPSLhtT4fsBVEdp1NvVg8jsnrhla0zm1qdCb",
+              "Accept": "application/json"
+            }
+          };
+          request(options, function (err2, response2, metaBody) {
+            var body2 = JSON.parse(metaBody);
+            console.log(body2);
+            body2 = body2[0];
+            if (body2.Message) {
+              res.json(false)
+            }
             db.Movie.create({
-              title: bod.Title,
-              routeName: _.camelCase(bod.Title),
-              year: bod.Year,
-              synopsis: movie.overview,
-              languages: bod.Language,
-              genres: bod.Genre,
-              director: bod.Director,
-              actors: bod.Actors,
+              title: body1.Title,
+              routeName: _.camelCase(body1.Title),
+              year: body1.Year,
+              synopsis: body1.Plot,
+              languages: body1.Language,
+              genres: body1.Genre,
+              director: body1.Director,
+              actors: body1.Actors,
               ratings: {
-                imdb: parseFloat(bod.imdbRating) * 10,
-                tmdb: parseFloat(movie.vote_average) * 10,
+                critic: body2.Rating.CriticRating,
+                general: parseFloat(body2.Rating.UserRating) * 10,
                 worthit: 100
               },
-              poster: 'http://image.tmdb.org/t/p/w300' + movie.poster_path
+              poster: body1.Poster
             }).then(function (results2) {
               res.json(results2);
             })
