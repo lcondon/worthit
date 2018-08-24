@@ -12,7 +12,9 @@ apiRouter.get("/movies", function (req, res) {
   if (req.query.s) {
     db.Movie.findOne({ where: { routeName: _.camelCase(req.query.s) } }).then(function (results) {
       if (results) {
-        res.json(results)
+        var regex = /'/gi;
+        var url = results.title.replace(regex, '%27')
+        res.json({ redirect: '/movies?s=' + url.replace(/[`~!@#$%^&*()_|+\=?;:",.<>\{\}\[\]\\\/]/g, '') })
       } else {
         res.json(false)
       }
@@ -26,30 +28,27 @@ apiRouter.get("/movies", function (req, res) {
 
 apiRouter.post('/movies', function (req, res) {
   if (req.query.s) {
-    db.Movie.findOne({ where: { routeName: _.camelCase(req.query.s) } }).then(function (results) {
-      if (results) {
-        res.json(results)
+    request({ url: 'http://www.omdbapi.com/?apikey=trilogy&t=' + req.query.s }, function (err, response, body) {
+      var body1 = JSON.parse(body);
+      if (body1.Error) {
+        res.json(false);
       } else {
-        request({ url: 'http://www.omdbapi.com/?apikey=trilogy&t=' + req.query.s }, function (err, response, body) {
-          var body1 = JSON.parse(body);
-          if (body1.Error) {
-            res.json(false);
+        var regex = /'/gi;
+        var url = body1.Title.replace(regex, '%27');
+        var outString = url.replace(/[`~!@#$%^&*()_|+\=?;:",.<>\{\}\[\]\\\/]/g, '');
+        var urlTitle = _.split(outString, " ").join('-');
+        var options = {
+          url: 'https://api-marcalencc-metacritic-v1.p.mashape.com/movie/' + urlTitle,
+          headers: {
+            "X-Mashape-Key": "TEDXKda4HhmshcRPSLhtT4fsBVEdp1NvVg8jsnrhla0zm1qdCb",
+            "Accept": "application/json"
           }
-          var urlTitle = _.split(body1.Title, " ").join('-');
-          var options = {
-            url: 'https://api-marcalencc-metacritic-v1.p.mashape.com/movie/' + urlTitle,
-            headers: {
-              "X-Mashape-Key": "TEDXKda4HhmshcRPSLhtT4fsBVEdp1NvVg8jsnrhla0zm1qdCb",
-              "Accept": "application/json"
-            }
-          };
-          request(options, function (err2, response2, metaBody) {
-            var body2 = JSON.parse(metaBody);
-            console.log(body2);
-            body2 = body2[0];
-            if (body2.Message) {
-              res.json(false)
-            }
+        };
+        request(options, function (err2, response2, metaBody) {
+          var body2 = JSON.parse(metaBody);
+          if (body2[0].Message) {
+            res.json(false);
+          } else {
             db.Movie.create({
               title: body1.Title,
               routeName: _.camelCase(body1.Title),
@@ -60,22 +59,21 @@ apiRouter.post('/movies', function (req, res) {
               director: body1.Director,
               actors: body1.Actors,
               ratings: {
-                critic: body2.Rating.CriticRating,
-                general: parseFloat(body2.Rating.UserRating) * 10,
-                worthit: 100
+                critic: body2[0].Rating.CriticRating,
+                general: parseFloat(body2[0].Rating.UserRating) * 10,
+                worthit: null
               },
               poster: body1.Poster
             }).then(function (results2) {
-              res.json(results2);
+              res.send({ redirect: '/movies?s=' + outString });
             })
-          })
-
+          }
         })
       }
     })
   } else {
     db.Movie.findAll().then(function (results) {
-      res.json(results)
+      res.send(results)
     })
   }
 })

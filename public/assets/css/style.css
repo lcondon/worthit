@@ -185,7 +185,7 @@ input#input-id {
 }
 
 
-#searchBlack {
+#searchBlack, #searchBlackIcon, #searchBlackDiv {
 	color: white;
 	background-color:  rgba(0, 0, 0, 0.75);
 	border: 0px;
@@ -445,6 +445,9 @@ button {
 	box-shadow: none;
 	border-color: #ccc;
 }
+#remember{
+	color: #000
+}
 .btn-login {
 	background-color: #59B2E0;
 	outline: none;
@@ -561,7 +564,7 @@ input[type=radio].with-thumbsup ~ label:before {
     font-size: 3.2em;
     color: #fff;
 	width: 1.2em;
-	-webkit-text-stroke: #000 1px;
+	/* -webkit-text-stroke: #000 1px; */
 }
 
 input[type=radio].with-thumbsup:checked ~ label:before {
@@ -569,7 +572,7 @@ input[type=radio].with-thumbsup:checked ~ label:before {
     font-size: 3.2em;
     color: goldenrod;
 	letter-spacing: 5px;
-	-webkit-text-stroke: #000 1px;
+	/* -webkit-text-stroke: #000 1px; */
 
 }
 
@@ -598,7 +601,7 @@ input[type=radio].with-thumbsdown ~ label:before {
     font-size: 3.2em;
     color: #fff;
 	width: 1.2em;
-	-webkit-text-stroke: #000 1px;
+	/* -webkit-text-stroke: #000 1px; */
 	-moz-transform: scale(-1, 1);
 	-webkit-transform: scale(-1, 1);
 	-o-transform: scale(-1, 1);
@@ -611,7 +614,7 @@ input[type=radio].with-thumbsdown:checked ~ label:before {
     font-size: 3.2em;
     color: goldenrod;
 	letter-spacing: 5px;
-	-webkit-text-stroke: #000 1px;
+	/* -webkit-text-stroke: #000 1px; */
 	-moz-transform: scale(-1, 1);
 	-webkit-transform: scale(-1, 1);
 	-o-transform: scale(-1, 1);
@@ -629,7 +632,7 @@ input[type=radio].with-thumbsdown:focus ~ label
 	margin-right: 0px;
 	font-family: 'Alfa Slab One', cursive;
 	font-size: 2.2em;
-	-webkit-text-stroke: #000 1px;
+	/* -webkit-text-stroke: #000 1px; */
 }
 
   /* heres when i break things */

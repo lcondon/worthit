@@ -1,10 +1,14 @@
 <body id="movieColorKey" class="whiteTxt">
     <nav class="navbar nav" id="contentPageHeader">
         <span>
-            <img id="headerImg" src="public/assets/images/worthitinverted.png">
+            <a href="/">
+                <img id="headerImg" src="/images/worthitinverted.png">
+            </a>
         </span>
         <span class="ml-auto">
-            <img id="loginButton" src="public/assets/images/plus.png">
+            <a href="/login">
+                <img id="loginButton" src="/images/plus.png">
+            </a>
         </span>
     </nav>
 
@@ -23,15 +27,14 @@
             <div class="col-sm-8 justify-content-center">
                 <div class="row w-100" id="searchResultsReturns">
                     <div class="col-sm-3 image-cropper align-self-center">
-                        <img class="image-fluid" src="http://image.tmdb.org/t/p/w300/u6QBDGUCOEMRekna95ip2MxplbQ.jpg">
+                        <img class="image-fluid" src="{{poster}}">
                     </div>
                     <div class="col-sm-9 align-self-center">
-                        <p class="nowrap" id="searchResultsOrdinal">{{number}}.</p>&nbsp;&nbsp;&nbsp;
-                        <p class="nowrap">Movie Title:{{title}}</p>&nbsp;&nbsp;&nbsp;
-                        {{#each ratings}}
-                        <p class="nowrap">Critic Rating:{{cRating}}</p>&nbsp;&nbsp;&nbsp;
-                        <p class="nowrap">General Audience Rating:{{gRating}}</p>
-                        <p>Plot Summary:{{summary}}</p>
+                        <p class="nowrap" id="searchResultsOrdinal">{{index}}.</p>&nbsp;&nbsp;&nbsp;
+                        <p class="nowrap">Movie Title: {{title}}</p>&nbsp;&nbsp;&nbsp;
+                        <p class="nowrap">Critic Rating: {{ratings.critic}}</p>&nbsp;&nbsp;&nbsp;
+                        <p class="nowrap">General Audience Rating: {{ratings.general}}</p>
+                        <p>Plot Summary: {{synopsis}}</p>
                     </div>
                 </div>
             </div>

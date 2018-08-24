@@ -1,8 +1,10 @@
 <body>
 	<nav class="navbar nav" id="splashPageHeader">
-		<a href="/gotem" class="ml-auto" id="loginPage">
-			<img id="loginButton" src="{{image}}">
-		</a>
+		<span class="ml-auto">
+			<a href="/login">
+				<img id="loginButton" src="/images/plus.png">
+			</a>
+		</span>
 	</nav>
 
 
@@ -16,8 +18,8 @@
 				<div class="col-md-5 align-self-center">
 					<div class="row no-gutters" id="searchBar">
 						<div class="input-group input-group-lg">
-							<div class="input-group-prepend" id="searchBlack">
-								<span id="searchBlack" class="input-group-text" id="inputGroup-sizing-lg">
+							<div class="input-group-prepend" id="searchBlackDiv">
+								<span id="searchBlackIcon" class="input-group-text" id="inputGroup-sizing-lg">
 									<i class="fa fa-search fa-fw"></i>
 								</span>
 							</div>
@@ -38,7 +40,9 @@
 					<button type="button" class="btn" id="btn-blue">WorthIt!</button>
 				</div>
 				<div class="col-md-4">
-					<a href="/movies/categories"><button type="button" class="btn" id="btn-purple">Categories</button></a>
+					<a href="/movies/categories">
+						<button type="button" class="btn" id="btn-purple">Categories</button>
+					</a>
 				</div>
 				<div class="col-md-4">
 					<button type="button" class="btn" id="btn-crimson">NOT WorthIt</button>
@@ -52,4 +56,5 @@
 	 crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	 crossorigin="anonymous"></script>
+	<script src="/js/fiddle.js"></script>
 </body>
