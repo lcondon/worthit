@@ -44,6 +44,7 @@ module.exports = function (app) {
     function (email, password, done) {
       db.User.findOne({ where: { email: email } }).then(function (user, err) {
         var creds = user.dataValues;
+        console.log(creds)
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });
         }

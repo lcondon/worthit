@@ -3,6 +3,7 @@ const passport = require('passport');
 const db = require("../models");
 const path = require('path');
 const htmlRouter = express.Router();
+var _ = require('lodash');
 const request = require('request');
 
 // Load index page
@@ -16,77 +17,74 @@ htmlRouter.get(["/", '/home', '/index'], function (req, res) {
   res.render('index', obj)
 });
 
-htmlRouter.get('/movies/categories', function (req, res) {
-  res.render('categories')
-  // res.sendFile(path.join(__dirname + "/../categorieslist.html"));
-});
-
 htmlRouter.get('/movies', function (req, res) {
   if (req.query.s) {
-    res.render('movie', {
-      title: '',
-      year: 1995,
-      director: '',
-      actors: '',
-      synopsis: '',
-      criticScore: 64,
-      generalScore: 71,
-      worthItScore: 99,
-      poster: 'http://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg'
+    db.Movie.findOne({ where: { routeName: _.camelCase(req.query.s) } }).then(function (result) {
+      res.render('movie', {
+        movie: result
+      })
+    }).catch(function (err) {
+      res.json(false)
     })
   } else {
-
+    res.json(false);
   }
 });
 
-htmlRouter.get('/movies/:category', function (req, res) {
-  db.Movie.findAll({ where: { genres: { $like: "%" + req.params.category + "%" } } }).then(function (movies) {
-    // res.render('results', movies: movies);
+htmlRouter.get('/movies/categories', function (req, res) {
+  res.render('categories');
+});
 
-    res.json(movies)
+htmlRouter.get('/movies/categories/:category', function (req, res) {
+  db.Movie.findAll({ where: { genres: { $like: "%" + req.params.category + "%" } } }).then(function (movies) {
+    res.render('results', { movies: movies });
+
+
   });
 })
 
-  htmlRouter.get("/login", function (req, res) {
-    res.sendFile(path.join(__dirname + "/../index.html"));
-  });
+htmlRouter.get("/login", function (req, res) {
+  res.render('login')
+});
 
-  htmlRouter.post('/login',
-    passport.authenticate('local', {
-      successRedirect: '/favorites',
-      failureRedirect: '/login',
-      failureFlash: true
-    })
-  );
-
-  htmlRouter.get("/favorites", function (req, res) {
-    // db.Example.findAll({}).then(function (dbExamples) {
-    //   res.render("index", {
-    //     msg: "Welcome!",
-    //     examples: dbExamples
-    //   });
-    // });
-    res.send(":)");
-  });
-
-  htmlRouter.get('/auth', function (req, res) {
-    console.log(`User authenticated? ${req.isAuthenticated()}`);
-    if (req.isAuthenticated()) {
-      res.send('you hit the authentication endpoint\n')
+htmlRouter.post('/login',
+  passport.authenticate('local'), function(req, res){
+    if (req.isAuthenticated()){
+      res.json({redirect: '/movies/categories'})
     } else {
-      res.redirect('/')
+      res.json({redirect: '/login'})
     }
-  })
+  }
+);
 
-  htmlRouter.get('/logout', function (req, res) {
-    req.logout();
-    res.redirect('/');
-  });
-
-  // Render 404 page for any unmatched routes
-  // htmlRouter.get("*", function (req, res) {
-  //   res.render("404");
+htmlRouter.get("/favorites", function (req, res) {
+  // db.Example.findAll({}).then(function (dbExamples) {
+  //   res.render("index", {
+  //     msg: "Welcome!",
+  //     examples: dbExamples
+  //   });
   // });
+  res.send(":)");
+});
 
-  module.exports = htmlRouter;
+htmlRouter.get('/auth', function (req, res) {
+  console.log(`User authenticated? ${req.isAuthenticated()}`);
+  if (req.isAuthenticated()) {
+    res.send('you hit the authentication endpoint\n')
+  } else {
+    res.redirect('/')
+  }
+})
+
+htmlRouter.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
+// Render 404 page for any unmatched routes
+// htmlRouter.get("*", function (req, res) {
+//   res.render("404");
+// });
+
+module.exports = htmlRouter;
 

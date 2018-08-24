@@ -5,7 +5,6 @@ module.exports = function(sequelize, DataTypes) {
       routeName: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
       },
       title: {
         type: DataTypes.STRING,
