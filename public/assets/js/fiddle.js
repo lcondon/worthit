@@ -150,3 +150,24 @@ $(document).on('click', '#loginBtn', function (event) {
     // }
 })
 
+$(document).on('click', '.favStar', function (event) {
+    event.preventDefault();
+    var movieId = $(this).attr('movie');
+    console.log(event)
+       $.ajax({
+           url: '/api/users',
+           method: 'PUT', 
+           data: {movieId: movieId}
+       }).then(function(data){
+           if (data) {
+               alert('success')
+           } else {
+               alert('must be logged in to do that')
+           }
+       })
+    // $.post('/login', {email: email,
+    //         password: $('#password').val()}).then(function(data){
+    //             window.location.href = data.redirect;
+    //         })
+})
+
