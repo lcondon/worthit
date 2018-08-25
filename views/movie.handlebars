@@ -182,12 +182,21 @@
                     </button>
 
                     <div class="collapse" id="commentsBox">
-                        <div class="card card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica,
-                            craft beer labore wes anderson cred nesciunt sapiente ea proident.
+
+                        {{#each comments.results}}
+
+                        <div class="card card-body commentsBlack">
+                            <div class="row">
+                                <div class="commentAuthor">{{comment.author}}</div>
+                                <div class="commentText">{{comment.body}}</div>
+                                <div class="commentVerdict">Verdict: <span id="commentVerdictOut">{{comment.verdict}}</span></div>
+                            </div>
                         </div>
+
+                        {{/each}}
+
+
                     </div>
-            </div>
 
             <div class="col-md-2"></div>
 

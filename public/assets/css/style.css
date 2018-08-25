@@ -554,7 +554,49 @@ button {
   .close:active{
 	color:white;
   }
+
+  /*COMMENT BOX*/
+
+  .commentAuthor {
+	  width: 100%;
+	  text-align: left;
+	  font-family: 'Alfa Slab One', cursive;
+	  font-size: 22px;
+	  padding-left: 15px;
+	  padding-right: 15px;
+  }
   
+  .commentText {
+	  width: 100%;
+	  font-family: 'Roboto Condensed', sans-serif;
+	  padding-left: 15px;
+	  padding-right: 15px;
+	  margin-top: 8px;
+	  margin-bottom: 8px;
+  }
+
+  .commentVerdict {
+	font-family: 'Alfa Slab One', cursive;
+	font-size: 22px;
+	padding-left: 15px;
+	padding-right: 15px;
+  }
+
+  #commentVerdictOut {
+	font-family: 'Alfa Slab One', cursive;
+	font-size: 22px;
+	color: goldenrod;
+	padding-left: 15px;
+	padding-right: 15px;
+  }
+
+  .commentsBlack {
+	  color:white;
+	  background-color: rgba(0, 0, 0, 0.5);
+	  padding-left: 15px;
+	  padding-right: 15px;
+  }
+
   /*animations*/
 
 #spinLoading {
