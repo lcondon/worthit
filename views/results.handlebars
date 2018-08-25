@@ -1,4 +1,4 @@
-<body id="movieColorKey" class="whiteTxt">
+<body id={ {movies.color}} class="whiteTxt">
     <nav class="navbar nav" id="contentPageHeader">
         <span>
             <a href="/">
@@ -21,16 +21,18 @@
             <div class="col-sm-2"></div>
         </div>
 
-        {{#each movies}}
+        {{#each movies.results}}
         <div class="row" id="searchResultsRow">
             <div class="col-sm-2"></div>
             <div class="col-sm-8 justify-content-center">
                 <div class="row w-100" id="searchResultsReturns">
                     <div class="col-sm-3 image-cropper align-self-center">
+                        <a href="/movies?s={{title}}">
                         <img class="image-fluid" src="{{poster}}">
+                        </a>
                     </div>
                     <div class="col-sm-9 align-self-center">
-                        <p class="nowrap" id="searchResultsOrdinal">{{index}}.</p>&nbsp;&nbsp;&nbsp;
+                        <p class="nowrap" id="searchResultsOrdinal">{{inc @index}}.</p>&nbsp;&nbsp;&nbsp;
                         <p class="nowrap">Movie Title: {{title}}</p>&nbsp;&nbsp;&nbsp;
                         <p class="nowrap">Critic Rating: {{ratings.critic}}</p>&nbsp;&nbsp;&nbsp;
                         <p class="nowrap">General Audience Rating: {{ratings.general}}</p>
