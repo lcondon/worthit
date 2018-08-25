@@ -63,7 +63,7 @@ $(document).ready(function () {
     getGeneralScore(parseFloat($("#generalCircle").attr("score")), changeGeneral);
     getUserScore(parseFloat($("#userCircle").attr("score")), changeUser);
     if ($("#limitImage").attr("src") == "N/A"){
-        $("#limitImage").attr("src", "https://img.moviepostershop.com/the-house-of-tomorrow-movie-poster-2018-1000778181.jpg") 
+        $("#limitImage").attr("src", "/images/movieplaceholder.gif") 
     }
 }
 )

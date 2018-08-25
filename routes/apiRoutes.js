@@ -63,11 +63,11 @@ apiRouter.post('/movies', function (req, res) {
               director: body1.Director,
               actors: body1.Actors,
               ratings: {
-                critic: body2[0].Rating.CriticRating,
-                general: parseFloat(body2[0].Rating.UserRating) * 10,
+                critic: body1.Metascore,
+                general: parseFloat(body1.imdbRating) * 10,
                 worthit: null
               },
-              differential: parseFloat(body2[0].Rating.UserRating) * 10 - parseFloat(body2[0].Rating.CriticRating) || 0,
+              differential: parseFloat(body1.imdbRating) * 10 - parseFloat(body1.Metascore) || 0,
               poster: body1.Poster
             }).then(function (results2) {
               res.send({ redirect: '/movies?s=' + outString });
@@ -83,11 +83,11 @@ apiRouter.post('/movies', function (req, res) {
               director: body1.Director,
               actors: body1.Actors,
               ratings: {
-                critic: body1.Metascore,
-                general: parseFloat(body1.imdbRating) * 10,
+                critic: body2[0].Rating.CriticRating,
+                general: parseFloat(body2[0].Rating.UserRating) * 10,
                 worthit: null
               },
-              differential: parseFloat(body1.imdbRating) * 10 - parseFloat(body1.Metascore) || 0,
+              differential: parseFloat(body2[0].Rating.UserRating) * 10 - parseFloat(body2[0].Rating.CriticRating) || 0,
               poster: body1.Poster
             }).then(function (results2) {
               res.send({ redirect: '/movies?s=' + outString });
