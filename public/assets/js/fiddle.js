@@ -62,6 +62,9 @@ $(document).ready(function () {
     getCriticScore(parseFloat($("#criticCircle").attr("score")), changeCritic);
     getGeneralScore(parseFloat($("#generalCircle").attr("score")), changeGeneral);
     getUserScore(parseFloat($("#userCircle").attr("score")), changeUser);
+    if ($("#limitImage").attr("src") == "N/A"){
+        $("#limitImage").attr("src", "/images/movieplaceholder.gif") 
+    }
 }
 )
 
@@ -153,3 +156,46 @@ $(document).on('click', '#loginBtn', function (event) {
     // }
 })
 
+$(document).on('click', '.favStar', function (event) {
+    event.preventDefault();
+    var movieId = $(this).attr('movie');
+    console.log(event)
+       $.ajax({
+           url: '/api/users',
+           method: 'PUT', 
+           data: {movieId: movieId}
+       }).then(function(data){
+           if (data) {
+             $(this).toggleClass('favorited')
+               alert('success')
+           } else {
+               alert('must be logged in to do that')
+           }
+       })
+    // $.post('/login', {email: email,
+    //         password: $('#password').val()}).then(function(data){
+    //             window.location.href = data.redirect;
+    //         })
+})
+
+// $(document).on('click', '#question1', function (event) {
+//     event.preventDefault();
+//     var movieId = $(this).attr('movie');
+//     console.log(event)
+//        $.ajax({
+//            url: '/api/users',
+//            method: 'PUT', 
+//            data: {movieId: movieId}
+//        }).then(function(data){
+//            if (data) {
+//              $(this).toggleClass('favorited')
+//                alert('success')
+//            } else {
+//                alert('You must be logged in to rate a movie!')
+//            }
+//        })
+//     // $.post('/login', {email: email,
+//     //         password: $('#password').val()}).then(function(data){
+//     //             window.location.href = data.redirect;
+//     //         })
+// })

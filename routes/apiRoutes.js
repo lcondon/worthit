@@ -10,10 +10,13 @@ var moment = require('moment');
 // Get all examples
 apiRouter.get("/movies", function (req, res) {
   if (req.query.s) {
-    var options = {$like: '%' + req.query.s};
-    db.Movie.findOne({ where: { title: 
-      options
-     } }).then(function (results) {
+    var options = { $like: '%' + req.query.s };
+    db.Movie.findOne({
+      where: {
+        title:
+          options
+      }
+    }).then(function (results) {
       if (results) {
         var regex = /'/gi;
         var url = results.title.replace(regex, '%27')
@@ -60,11 +63,11 @@ apiRouter.post('/movies', function (req, res) {
               director: body1.Director,
               actors: body1.Actors,
               ratings: {
-                critic: body2[0].Rating.CriticRating,
-                general: parseFloat(body2[0].Rating.UserRating) * 10,
+                critic: body1.Metascore,
+                general: parseFloat(body1.imdbRating) * 10,
                 worthit: null
               },
-              differential: parseFloat(body2[0].Rating.UserRating) * 10 - parseFloat(body2[0].Rating.CriticRating),
+              differential: parseFloat(body1.imdbRating) * 10 - parseFloat(body1.Metascore) || 0,
               poster: body1.Poster
             }).then(function (results2) {
               res.send({ redirect: '/movies?s=' + outString });
@@ -80,11 +83,11 @@ apiRouter.post('/movies', function (req, res) {
               director: body1.Director,
               actors: body1.Actors,
               ratings: {
-                critic: body1.Metascore,
-                general: parseFloat(body1.imdbRating) * 10,
+                critic: body2[0].Rating.CriticRating,
+                general: parseFloat(body2[0].Rating.UserRating) * 10,
                 worthit: null
               },
-              differential: parseFloat(body1.imdbRating) * 10 - parseFloat(body1.Metascore),
+              differential: parseFloat(body2[0].Rating.UserRating) * 10 - parseFloat(body2[0].Rating.CriticRating) || 0,
               poster: body1.Poster
             }).then(function (results2) {
               res.send({ redirect: '/movies?s=' + outString });
@@ -143,6 +146,38 @@ apiRouter.post('/users', function (req, res) {
       res.end();
     });
 });
+
+apiRouter.put('/users', function (req, res) {
+  if (req.isAuthenticated()) {
+  db.User.findOne({ where: { id: req.user.dataValues.id } }).then(function (results) {
+    console.log(results.dataValues.favorites)
+    var favoriteValue = results.dataValues.favorites;
+    if (favoriteValue == null) {
+      db.User.update({
+        favorites: "[" + req.body.movieId + "]"
+      }, {
+          where: {
+            id: req.user.dataValues.id
+          }
+        })
+    } else {
+      favoriteValue = JSON.parse(favoriteValue)
+      favoriteValue.push(req.body.movieId)
+
+      db.User.update({
+        favorites:  JSON.stringify(favoriteValue)
+      }, {
+          where: {
+            id: req.user.dataValues.id
+          }
+        }).then(res.json(false))
+    }
+
+  })
+} else {
+  res.json(false)
+}
+})
 
 apiRouter.delete("/users/:id", function (req, res) {
   db.users.destroy({ where: { id: req.params.id } }).then(function (results) {
