@@ -71,6 +71,9 @@ $(document).on('keyup', bind_to, function (event) {
     event.preventDefault();
     console.log(event)
     if (event.keyCode == 13) {
+
+		$("#mainPageSplash").removeClass("rollIn").addClass("spinLoading");
+        
         var searchTerm = $(this).val().trim()
         if (searchTerm !== '') {
             searchTerm = searchTerm.replace(/[`–~!@#$%^&*()_|+\=?;:",.<>\{\}\[\]\\\/]/gi, '');
