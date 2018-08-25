@@ -64,8 +64,6 @@ htmlRouter.get('/movies/categories/:category', function (req, res) {
       movies: {results: movies,
         color: 'movieColorNeutral',
       pageTitle: req.params.category }});
-
-
   });
 })
 

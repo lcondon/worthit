@@ -1,4 +1,5 @@
 <body id="{{movies.color}}" class="whiteTxt">
+
     <nav class="navbar nav" id="contentPageHeader">
         <span>
             <a href="/">
@@ -27,7 +28,9 @@
             <div class="col-sm-8 justify-content-center">
                 <div class="row w-100" id="searchResultsReturns">
                     <div class="col-sm-3 image-cropper align-self-center">
+                        <a href="/movies?s={{title}}">
                         <img class="image-fluid" src="{{poster}}">
+                        </a>
                     </div>
                     <div class="col-sm-9 align-self-center">
                         <p class="nowrap" id="searchResultsOrdinal">{{inc @index}}.</p>&nbsp;&nbsp;&nbsp;

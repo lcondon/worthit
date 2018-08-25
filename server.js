@@ -33,6 +33,12 @@ Handlebars.registerHelper("inc", function(value, options)
 
 var syncOptions = { force: true };
 
+//Handles Results Numbers
+Handlebars.registerHelper("inc", function(value, options)
+{
+    return parseInt(value) + 1;
+});
+
 db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
     console.log("Listening on port " + PORT);
