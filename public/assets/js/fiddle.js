@@ -148,3 +148,8 @@ $(document).on('click', '#loginBtn', function (event) {
         // alert('Invalid email or password!')
     // }
 })
+
+$(document).on('click', '#btn-crimson', function (event) {
+    event.preventDefault();
+    
+})

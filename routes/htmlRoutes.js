@@ -31,6 +31,13 @@ htmlRouter.get('/movies', function (req, res) {
   }
 });
 
+htmlRouter.get('/movies/notworthit', function(req, res){
+  var movies = [];
+  db.Movie.findAll({limit:10, order: 'differential ASC'}).then(function(result){
+    res.render('results', {movies:result})
+  })
+})
+
 htmlRouter.get('/movies/categories', function (req, res) {
   res.render('categories');
 });

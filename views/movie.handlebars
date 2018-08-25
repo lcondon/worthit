@@ -87,7 +87,7 @@
                 <h4 class="nowrap">{{movie.year}}</h4>
                 <hr>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-4 text-center">
 
                         <div class="progress critic">
                             <span class="progress-left">
@@ -98,11 +98,12 @@
                             </span>
                             <div class="progress-value" id="criticCircle" score="{{movie.ratings.critic}}">%</div>
                         </div>
+                        <p class = "label">Critic Rating</p>
 
 
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-4 text-center">
 
                         <div class="progress general">
                             <span class="progress-left">
@@ -113,10 +114,12 @@
                             </span>
                             <div class="progress-value" id="generalCircle" score="{{movie.ratings.general}}">%</div>
                         </div>
+                        
+                        <p class = "label">General Rating</p>
 
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-4 text-center">
 
                         <div class="progress users">
                             <span class="progress-left">
@@ -127,7 +130,7 @@
                             </span>
                             <div class="progress-value" id="userCircle" score="{{movie.ratings.worthit}}">%</div>
                         </div>
-
+                        <p class = "label">Our Rating</p>
                     </div>
                 </div>
                 <hr>
