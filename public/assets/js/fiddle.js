@@ -57,6 +57,7 @@ function changeUser() {
 }
 
 $(document).ready(function () {
+    console.log(window.location.pathname);
     $('#searchBlack').val('');
     getCriticScore(parseFloat($("#criticCircle").attr("score")), changeCritic);
     getGeneralScore(parseFloat($("#generalCircle").attr("score")), changeGeneral);
@@ -148,5 +149,4 @@ $(document).on('click', '#loginBtn', function (event) {
         // alert('Invalid email or password!')
     // }
 })
-
 

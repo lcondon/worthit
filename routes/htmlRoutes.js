@@ -34,35 +34,36 @@ htmlRouter.get('/movies', function (req, res) {
 
 
 htmlRouter.get('/movies/notworthit', function (req, res) {
-  db.Movie.findAll({
-    limit: 10,
-    order:[[ 'differential', 'ASC']]
-  }).then(function (result) {
-    res.render('results', {
-      movies: {results: result, color: 'movieColorBad'}})
+  db.Movie.findAll({ limit: 10, order: [['differential', 'ASC']] }).then(function (result) {
+    res.render('results', { 
+      movies: {results: result,
+        color: 'movieColorBad',
+        pageTitle: 'Not WorthIt' }})
   })
 })
 
 htmlRouter.get('/movies/worthit', function (req, res) {
   db.Movie.findAll({
     limit: 10,
-    order:[[ 'differential', 'DESC']]
+    order: [['differential', 'DESC']]
   }).then(function (result) {
-    res.render('results', {
-      movies: {results: result, color: 'movieColorGood'}})
+    res.render('results', { 
+      movies: {results: result,
+        color: 'movieColorGood',
+        pageTitle: 'WorthIt' }})
   })
 })
-
 
 htmlRouter.get('/movies/categories', function (req, res) {
   res.render('categories');
 });
 
 htmlRouter.get('/movies/categories/:category', function (req, res) {
-  db.Movie.findAll({ where: { genres: { $like: "%" + req.params.category + "%" } } }).then(function (result) {
-    res.render('results', {
-      movies: {results: result, color: 'movieColorNeutral'}})
-  
+  db.Movie.findAll({ where: { genres: { $like: "%" + req.params.category + "%" } } }).then(function (movies) {
+    res.render('results', { 
+      movies: {results: movies,
+        color: 'movieColorNeutral',
+      pageTitle: req.params.category }});
   });
 })
 

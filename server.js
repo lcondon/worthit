@@ -26,6 +26,11 @@ app.set("view engine", "handlebars");
 app.use('/api', apiRouter);
 app.use('/', htmlRouter);
 
+Handlebars.registerHelper("inc", function(value, options)
+{
+    return parseInt(value) + 1;
+});
+
 var syncOptions = { force: true };
 
 //Handles Results Numbers

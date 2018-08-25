@@ -277,6 +277,10 @@ input#input-id {
 #tallerComments {
 	height: 10rem;
 	/* color: black; */
+	color:white;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 form textarea{
@@ -337,11 +341,21 @@ button {
 
 
 #searchResultsImg {
-
 	display: block;
-
-
 }
+
+
+
+#errorHeader {
+	font-family: 'Alfa Slab One', cursive;
+	color: white;
+}
+
+#errorMessage {
+	font-family: 'Alfa Slab One', cursive;
+	color: white;
+}
+
 
 #searchResultsOrdinal {
 	font-size: 150%;
@@ -508,6 +522,51 @@ button {
 .formSpace {
 	margin-top: 20px;
 }
+
+/*modal*/
+
+.modal-content{
+	background-color: #000;
+	color: white;
+	border-radius: 0px;
+  }
+  
+  .modal-header{
+	border-bottom: 0px solid #333;
+  }
+  
+  .modal-footer {
+	border-top: 0px solid #333;
+  }
+  
+  .modal-body {
+	 background-color: rgba(156, 13, 56, 0.3);
+  }
+  
+  .close {
+	color: white;
+  }
+  
+  .close:hover{
+	color:white;
+  }
+  
+  .close:active{
+	color:white;
+  }
+  
+  /*animations*/
+
+#spinLoading {
+	-webkit-animation:spin 1s linear infinite;
+    -moz-animation:spin 1s linear infinite;
+    animation:spin 1s linear infinite;
+}
+
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 @-webkit-keyframes rollIn {
 	from {
