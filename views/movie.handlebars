@@ -134,9 +134,12 @@
                     </div>
                 </div>
                 <hr>
-                <p class="nowrap">Director: {{movie.director}}</p>&emsp;&emsp;
-                <p class="nowrap">Actors: {{movie.actors}}</p>&emsp;&emsp;
-                <p>Plot Summary: {{movie.synopsis}}</p>&emsp;&emsp;
+                <div class="row" id="movieInfo">
+                    <p class="nowrap" id="biggerTxt">Directed by {{movie.director}}</p>&emsp;&emsp;
+                    <p>{{movie.synopsis}}</p>
+                    <p class="nowrap" id="starringTxt">Starring: {{movie.actors}}</p>&emsp;&emsp;
+                </div>
+
             </div>
             <div class="col-sm-2"></div>
         </div>

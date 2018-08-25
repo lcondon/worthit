@@ -222,8 +222,9 @@ input#input-id {
 }
 
 .nowrap {
-	white-space: nowrap;
+	/* white-space: nowrap; */
 	display: inline;
+	text-overflow: ellipsis;
 }
 
 .overflowEllipsis{
@@ -555,6 +556,23 @@ button {
 	color:white;
   }
 
+  #movieInfo {
+	  background-color: rgba(0, 0, 0, 0.5);
+	  padding: 2rem;
+	  border-radius: 5px;
+  }
+
+  #biggerTxt {
+	  font-size: 125%;
+	  font-family: 'Alfa Slab One', cursive;
+
+  }
+
+  #starringTxt {
+	  font-size: 70%;
+
+  }
+
   /*COMMENT BOX*/
 
   .commentAuthor {
@@ -599,7 +617,7 @@ button {
 
   /*animations*/
 
-#spinLoading {
+.spinLoading {
 	-webkit-animation:spin 1s linear infinite;
     -moz-animation:spin 1s linear infinite;
     animation:spin 1s linear infinite;
