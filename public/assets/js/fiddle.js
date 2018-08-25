@@ -57,6 +57,7 @@ function changeUser() {
 }
 
 $(document).ready(function () {
+    console.log(window.location.pathname);
     $('#searchBlack').val('');
     getCriticScore(parseFloat($("#criticCircle").attr("score")), changeCritic);
     getGeneralScore(parseFloat($("#generalCircle").attr("score")), changeGeneral);
@@ -149,13 +150,3 @@ $(document).on('click', '#loginBtn', function (event) {
     // }
 })
 
-
-$(document).on('click', '#btn-crimson', function (event) {
-    event.preventDefault();
-    
-
-$(document).on('click', '#btn-blue', function (event) {
-    event.preventDefault();
-   
-
-})
