@@ -175,4 +175,24 @@ $(document).on('click', '.favStar', function (event) {
     //         })
 })
 
-
+// $(document).on('click', '#question1', function (event) {
+//     event.preventDefault();
+//     var movieId = $(this).attr('movie');
+//     console.log(event)
+//        $.ajax({
+//            url: '/api/users',
+//            method: 'PUT', 
+//            data: {movieId: movieId}
+//        }).then(function(data){
+//            if (data) {
+//              $(this).toggleClass('favorited')
+//                alert('success')
+//            } else {
+//                alert('You must be logged in to rate a movie!')
+//            }
+//        })
+//     // $.post('/login', {email: email,
+//     //         password: $('#password').val()}).then(function(data){
+//     //             window.location.href = data.redirect;
+//     //         })
+// })
