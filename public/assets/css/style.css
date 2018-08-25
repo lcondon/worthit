@@ -104,6 +104,10 @@ ul a:hover, a:active{
 	margin-bottom: 15vh;
 } */
 
+.label{
+	padding-top: 5px;
+}
+
 #mainPageSplash {
 	max-width: 90%;
 	max-height: auto;

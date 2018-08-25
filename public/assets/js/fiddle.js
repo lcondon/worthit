@@ -149,7 +149,13 @@ $(document).on('click', '#loginBtn', function (event) {
     // }
 })
 
+
+$(document).on('click', '#btn-crimson', function (event) {
+    event.preventDefault();
+    
+
 $(document).on('click', '#btn-blue', function (event) {
     event.preventDefault();
    
+
 })
