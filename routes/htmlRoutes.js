@@ -19,7 +19,8 @@ htmlRouter.get(["/", '/home', '/index'], function (req, res) {
 
 htmlRouter.get('/movies', function (req, res) {
   if (req.query.s) {
-    db.Movie.findOne({ where: { routeName: _.camelCase(req.query.s) } }).then(function (result) {
+    var options = { $like: '%' + req.query.s };
+    db.Movie.findOne({ where: { title: options } }).then(function (result) {
       res.render('movie', {
         movie: result
       })
@@ -30,6 +31,16 @@ htmlRouter.get('/movies', function (req, res) {
     res.json(false);
   }
 });
+
+htmlRouter.get('/movies/worthit', function (req, res) {
+  var movies = [];
+  db.Movie.findAll({
+    limit: 10,
+    order: 'differential DESC'
+  }).then(function (result) {
+    res.render('results', {movies: result})
+  })
+})
 
 htmlRouter.get('/movies/categories', function (req, res) {
   res.render('categories');
@@ -48,11 +59,11 @@ htmlRouter.get("/login", function (req, res) {
 });
 
 htmlRouter.post('/login',
-  passport.authenticate('local'), function(req, res){
-    if (req.isAuthenticated()){
-      res.json({redirect: '/movies/categories'})
+  passport.authenticate('local'), function (req, res) {
+    if (req.isAuthenticated()) {
+      res.json({ redirect: '/movies/categories' })
     } else {
-      res.json({redirect: '/login'})
+      res.json({ redirect: '/login' })
     }
   }
 );

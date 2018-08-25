@@ -42,6 +42,9 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.JSON,
         allowNull: false
       },
+      differential : {
+        type: DataTypes.INTEGER
+      },
       createdAt: {
         type: DataTypes.DATE,
         get() {
