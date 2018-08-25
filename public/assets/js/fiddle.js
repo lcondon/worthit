@@ -62,6 +62,9 @@ $(document).ready(function () {
     getCriticScore(parseFloat($("#criticCircle").attr("score")), changeCritic);
     getGeneralScore(parseFloat($("#generalCircle").attr("score")), changeGeneral);
     getUserScore(parseFloat($("#userCircle").attr("score")), changeUser);
+    if ($("#limitImage").attr("src") == "N/A"){
+        $("#limitImage").attr("src", "https://img.moviepostershop.com/the-house-of-tomorrow-movie-poster-2018-1000778181.jpg") 
+    }
 }
 )
 
@@ -160,6 +163,7 @@ $(document).on('click', '.favStar', function (event) {
            data: {movieId: movieId}
        }).then(function(data){
            if (data) {
+             $(this).toggleClass('favorited')
                alert('success')
            } else {
                alert('must be logged in to do that')
@@ -170,4 +174,5 @@ $(document).on('click', '.favStar', function (event) {
     //             window.location.href = data.redirect;
     //         })
 })
+
 

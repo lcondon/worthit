@@ -67,7 +67,7 @@ apiRouter.post('/movies', function (req, res) {
                 general: parseFloat(body2[0].Rating.UserRating) * 10,
                 worthit: null
               },
-              differential: parseFloat(body2[0].Rating.UserRating) * 10 - parseFloat(body2[0].Rating.CriticRating),
+              differential: parseFloat(body2[0].Rating.UserRating) * 10 - parseFloat(body2[0].Rating.CriticRating) || 0,
               poster: body1.Poster
             }).then(function (results2) {
               res.send({ redirect: '/movies?s=' + outString });
@@ -87,7 +87,7 @@ apiRouter.post('/movies', function (req, res) {
                 general: parseFloat(body1.imdbRating) * 10,
                 worthit: null
               },
-              differential: parseFloat(body1.imdbRating) * 10 - parseFloat(body1.Metascore),
+              differential: parseFloat(body1.imdbRating) * 10 - parseFloat(body1.Metascore) || 0,
               poster: body1.Poster
             }).then(function (results2) {
               res.send({ redirect: '/movies?s=' + outString });
