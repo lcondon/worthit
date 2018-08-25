@@ -10,7 +10,10 @@ var moment = require('moment');
 // Get all examples
 apiRouter.get("/movies", function (req, res) {
   if (req.query.s) {
-    db.Movie.findOne({ where: { routeName: _.camelCase(req.query.s) } }).then(function (results) {
+    var options = {$like: '%' + req.query.s};
+    db.Movie.findOne({ where: { title: 
+      options
+     } }).then(function (results) {
       if (results) {
         var regex = /'/gi;
         var url = results.title.replace(regex, '%27')
@@ -47,8 +50,6 @@ apiRouter.post('/movies', function (req, res) {
         request(options, function (err2, response2, metaBody) {
           var body2 = JSON.parse(metaBody);
           if (body2[0].Message) {
-            res.json(false);
-          } else {
             db.Movie.create({
               title: body1.Title,
               routeName: _.camelCase(body1.Title),
@@ -63,6 +64,27 @@ apiRouter.post('/movies', function (req, res) {
                 general: parseFloat(body2[0].Rating.UserRating) * 10,
                 worthit: null
               },
+              differential: parseFloat(body2[0].Rating.UserRating) * 10 - parseFloat(body2[0].Rating.CriticRating),
+              poster: body1.Poster
+            }).then(function (results2) {
+              res.send({ redirect: '/movies?s=' + outString });
+            })
+          } else {
+            db.Movie.create({
+              title: body1.Title,
+              routeName: _.camelCase(body1.Title),
+              year: body1.Year,
+              synopsis: body1.Plot,
+              languages: body1.Language,
+              genres: body1.Genre,
+              director: body1.Director,
+              actors: body1.Actors,
+              ratings: {
+                critic: body1.Metascore,
+                general: parseFloat(body1.imdbRating) * 10,
+                worthit: null
+              },
+              differential: parseFloat(body1.imdbRating) * 10 - parseFloat(body1.Metascore),
               poster: body1.Poster
             }).then(function (results2) {
               res.send({ redirect: '/movies?s=' + outString });
