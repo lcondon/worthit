@@ -3,6 +3,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var bars = require("express-handlebars");
 var passport = require('passport');
+var Handlebars = require('handlebars');
 
 var db = require("./models");
 var PORT = process.env.PORT || 8800;
@@ -24,6 +25,11 @@ app.set("view engine", "handlebars");
 // Routes
 app.use('/api', apiRouter);
 app.use('/', htmlRouter);
+
+Handlebars.registerHelper("inc", function(value, options)
+{
+    return parseInt(value) + 1;
+});
 
 var syncOptions = { force: true };
 
