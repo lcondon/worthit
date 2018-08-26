@@ -8,7 +8,7 @@ var _ = require('lodash');
 var moment = require('moment');
 
 // Get all examples
-apiRouter.get("/movies", function (req, res) {
+apiRouter.get('/movies', function (req, res) {
   if (req.query.s) {
     var options = { $like: '%' + req.query.s };
     db.Movie.findOne({
@@ -105,23 +105,39 @@ apiRouter.post('/movies', function (req, res) {
   }
 })
 
-apiRouter.post('/ratings', function(req, res){
-  if (req.isAuthenticated()){
-  db.Rating.create({
-    user_id: req.user.dataValues.id,
-    movie_id: req.body.movie_id,
-    rating: req.body.rating,
-    comment: req.body.comment
+apiRouter.post('/ratings', function (req, res) {
+  if (req.isAuthenticated()) {
+    db.Rating.create({
+      user_id: req.user.dataValues.id,
+      movie_id: req.body.movie_id,
+      rating: req.body.rating,
+      comment: req.body.comment
 
-  }).then(function(result){
-    res.json(result)
-  })
-} else {
-  res.json(false)
-}
+    }).then(function (result) {
+      res.json(result)
+    })
+  } else {
+    res.json(false)
+  }
 })
 
-apiRouter.get("/users", function (req, res) {
+apiRouter.put('/ratings', function (req, res) {
+  if (req.isAuthenticated()) {
+    db.Rating.update({
+      comment: req.body.comment
+    }, {
+        where: {
+          user_id: req.user.dataValues.id
+        }
+      }).then(function (result) {
+        res.json(result)
+      })
+  } else {
+    res.json(false)
+  }
+})
+
+apiRouter.get('/users', function (req, res) {
   if (req.query.s) {
     db.User.findOne({ where: { id: req.query.s } }).then(function (results) {
       res.json({
@@ -197,10 +213,12 @@ apiRouter.put('/users', function (req, res) {
   }
 })
 
-apiRouter.delete("/users/:id", function (req, res) {
+apiRouter.delete('/users/:id', function (req, res) {
   db.users.destroy({ where: { id: req.params.id } }).then(function (results) {
     res.json(results);
   });
 });
+
+
 
 module.exports = apiRouter;
