@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       },
       comment: DataTypes.TEXT,
-      rating: DataTypes.INTEGER,
+      rating: DataTypes.BOOLEAN,
       createdAt: {
         type: DataTypes.DATE,
         get() {
