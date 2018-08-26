@@ -19,7 +19,6 @@ apiRouter.get("/movies", function (req, res) {
     }).then(function (results) {
       console.log(results)
       if (results) {
-        replace(regex, '%27')
         res.json({ redirect: '/movies?s=' + results.title })
       } else {
         res.json(false)
