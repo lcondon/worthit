@@ -17,10 +17,10 @@ apiRouter.get("/movies", function (req, res) {
           options
       }
     }).then(function (results) {
+      console.log(results)
       if (results) {
-        var regex = /'/gi;
-        var url = results.title.replace(regex, '%27')
-        res.json({ redirect: '/movies?s=' + url.replace(/[`~!@#$%^&*()_|+\=?;:",.<>\{\}\[\]\\\/]/g, '') })
+        replace(regex, '%27')
+        res.json({ redirect: '/movies?s=' + results.title })
       } else {
         res.json(false)
       }
@@ -52,6 +52,9 @@ apiRouter.post('/movies', function (req, res) {
         };
         request(options, function (err2, response2, metaBody) {
           var body2 = JSON.parse(metaBody);
+          if (body1.Poster === 'N/A') {
+            body1.Poster = '/images/movieplaceholder.gif';
+          }
           if (body2[0].Message) {
             db.Movie.create({
               title: body1.Title,
@@ -88,7 +91,7 @@ apiRouter.post('/movies', function (req, res) {
                 worthit: null
               },
               differential: parseFloat(body2[0].Rating.UserRating) * 10 - parseFloat(body2[0].Rating.CriticRating) || 0,
-              poster: body1.Poster
+              poster: body1.Poster || '/images/movieplaceholder.gif'
             }).then(function (results2) {
               res.send({ redirect: '/movies?s=' + outString });
             })
@@ -101,6 +104,22 @@ apiRouter.post('/movies', function (req, res) {
       res.send(results)
     })
   }
+})
+
+apiRouter.post('/ratings', function(req, res){
+  if (req.isAuthenticated()){
+  db.Rating.create({
+    user_id: req.user.dataValues.id,
+    movie_id: req.body.movie_id,
+    rating: req.body.rating,
+    comment: req.body.comment
+
+  }).then(function(result){
+    res.json(result)
+  })
+} else {
+  res.json(false)
+}
 })
 
 apiRouter.get("/users", function (req, res) {
@@ -149,34 +168,34 @@ apiRouter.post('/users', function (req, res) {
 
 apiRouter.put('/users', function (req, res) {
   if (req.isAuthenticated()) {
-  db.User.findOne({ where: { id: req.user.dataValues.id } }).then(function (results) {
-    console.log(results.dataValues.favorites)
-    var favoriteValue = results.dataValues.favorites;
-    if (favoriteValue == null) {
-      db.User.update({
-        favorites: "[" + req.body.movieId + "]"
-      }, {
-          where: {
-            id: req.user.dataValues.id
-          }
-        })
-    } else {
-      favoriteValue = JSON.parse(favoriteValue)
-      favoriteValue.push(req.body.movieId)
+    db.User.findOne({ where: { id: req.user.dataValues.id } }).then(function (results) {
+      console.log(results.dataValues.favorites)
+      var favoriteValue = results.dataValues.favorites;
+      if (favoriteValue == null) {
+        db.User.update({
+          favorites: "[" + req.body.movieId + "]"
+        }, {
+            where: {
+              id: req.user.dataValues.id
+            }
+          })
+      } else {
+        favoriteValue = JSON.parse(favoriteValue)
+        favoriteValue.push(req.body.movieId)
 
-      db.User.update({
-        favorites:  JSON.stringify(favoriteValue)
-      }, {
-          where: {
-            id: req.user.dataValues.id
-          }
-        }).then(res.json(false))
-    }
+        db.User.update({
+          favorites: JSON.stringify(favoriteValue)
+        }, {
+            where: {
+              id: req.user.dataValues.id
+            }
+          }).then(res.json(false))
+      }
 
-  })
-} else {
-  res.json(false)
-}
+    })
+  } else {
+    res.json(false)
+  }
 })
 
 apiRouter.delete("/users/:id", function (req, res) {

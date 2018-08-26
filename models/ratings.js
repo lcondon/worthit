@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       },
       comment: DataTypes.TEXT,
-      rating: DataTypes.INTEGER,
+      rating: DataTypes.BOOLEAN,
       createdAt: {
         type: DataTypes.DATE,
         get() {
@@ -28,13 +28,13 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
   
-    Rating.associate = function(models) {
-      Rating.belongsTo(models.User, {
-        foreignKey: {
-          allowNull: false
-        }
-      });
-    };
+    // Rating.associate = function(models) {
+    //   Rating.belongsTo(models.User, {
+    //     foreignKey: {
+    //       allowNull: false
+    //     }
+    //   });
+    // };
   
     return Rating;
   };
