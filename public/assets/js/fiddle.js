@@ -3,10 +3,14 @@ var gScore;
 var uScore;
 
 function getCriticScore(criticScore, cb) {
-    if (criticScore > 50) {
+    if ((Number.isNaN(criticScore))){
+        $('#criticCircle').text('None')
+    }
+    else if(criticScore > 50) {
         cScore = criticScore * 360 / 100 - 180
         $('#criticCircle').text(criticScore + "%")
-    } else {
+    } 
+    else {
         $('#criticSwitch').text('.progress.critic .progress-right .progress-bar{animation: criticLoad 1.5s linear forwards 1.8s;}');
         cScore = criticScore * 360 / 100
         $('#criticCircle').text(criticScore + "%")
@@ -57,7 +61,7 @@ function changeUser() {
 }
 
 $(document).ready(function () {
-    // console.log(window.location.pathname);
+    console.log(window.location.pathname);
     $('#searchBlack').val('');
     getCriticScore(parseFloat($("#criticCircle").attr("score")), changeCritic);
     getGeneralScore(parseFloat($("#generalCircle").attr("score")), changeGeneral);
@@ -114,7 +118,7 @@ $(document).on('keyup', bind_to, function (event) {
             })
 
         }
-        $(document).off('keyup', bind_to);
+        // $(document).off('keyup', bind_to);
     }
 });
 
@@ -164,6 +168,20 @@ $(document).on('click', '#loginBtn', function (event) {
     // }
 })
 
+$(document).on('click', '#question1', function(event){
+    event.preventDefault();
+    $('#question1').attr('value', 'selected');
+    $('#question2').attr('value', '');
+    
+})
+
+$(document).on('click', '#question2', function(event){
+    event.preventDefault();
+    $('#question1').attr('value', '');
+    $('#question2').attr('value', 'selected');
+    
+})
+
 $(document).on('click', '.favStar', function (event) {
     event.preventDefault();
     var movieId = $(this).attr('movie');
@@ -180,28 +198,23 @@ $(document).on('click', '.favStar', function (event) {
                alert('must be logged in to do that')
            }
        })
-
-
-
-
     // $.post('/login', {email: email,
     //         password: $('#password').val()}).then(function(data){
     //             window.location.href = data.redirect;
     //         })
 })
 
-
 $(document).on('click', '#btn-apple', function (event) {
     event.preventDefault();
     console.log($('.favStar').attr('movie'))
-    console.log($('#question1').checked)
-    console.log($('#question2').checked)
+    console.log($('#question1').attr('value'))
+    console.log($('#question2').attr('value'))
     var rating;
     var comment = $('#tallerComments').val().trim();
-    if ($('#question1').checked) {
-        rating = 'worthit'
-    } else if ($('#question2').checked) {
-        rating = 'notworthit'
+    if ($('#question1').attr('value') === 'selected') {
+        rating = true
+    } else if ($('#question2').attr('value') === 'selected') {
+        rating = false
     }
        $.ajax({
            url: '/api/ratings',
@@ -223,4 +236,3 @@ $(document).on('click', '#btn-apple', function (event) {
     //             window.location.href = data.redirect;
     //         })
 })
-

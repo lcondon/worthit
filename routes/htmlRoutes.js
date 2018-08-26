@@ -21,18 +21,16 @@ htmlRouter.get('/movies', function (req, res) {
   if (req.query.s) {
     var options = { $like: '%' + req.query.s + '%' };
     db.Movie.findOne({ where: { title: options } }).then(function (result) {
-      db.Ratings.findAll({ where: { movie_id: result.id }, order: [['createdAt', 'DESC']] }).then(function (comments) {
-        if (comments) {
+      console.log(result.dataValues)
+      db.Rating.findAll({ where: { movie_id: result.id }, order: [['createdAt', 'DESC']] }).then(function (comments) {
           res.render('movie', {
             movies: { info: result, comments: comments }
           })
-        } else {
-          res.render('movie', {
-            movies: { info: result}
-          })
-        }
+      }).catch(function(err) {
+        res.render('movieNoComment', {
+          movies: result.dataValues
+        })
       })
-
     }).catch(function (err) {
       res.json(false)
     })
