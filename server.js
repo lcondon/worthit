@@ -31,13 +31,13 @@ Handlebars.registerHelper("inc", function(value, options)
     return parseInt(value) + 1;
 });
 
-var syncOptions = { force: true };
-
 //Handles Results Numbers
 Handlebars.registerHelper("inc", function(value, options)
 {
     return parseInt(value) + 1;
 });
+
+var syncOptions = { force: true };
 
 db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
