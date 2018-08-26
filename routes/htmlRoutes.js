@@ -32,26 +32,30 @@ htmlRouter.get('/movies', function (req, res) {
             }
           }
           var userRating = (worthItRatings / totalRatings) * 100;
-          db.Movie.update({
-            differential: userRating - result.ratings.critic || result.ratings.general - result.ratings.critic,
-            ratings: {
-              critic: result.ratings.critic,
-              general: result.ratings.general,
-              worthit: userRating || null
-            }
-          }, {
-              where: {
-                id: result.id
+          if (comments) {
+
+            db.Movie.update({
+              differential: userRating - result.ratings.critic || result.ratings.general - result.ratings.critic,
+              ratings: {
+                critic: result.ratings.critic,
+                general: result.ratings.general,
+                worthit: userRating || null
               }
-            }).then(function(data){
-              res.render('movie', {
-                movies: { info: theMovie }
+            }, {
+                where: {
+                  id: result.id
+                }
+              }).then(function(data){
+                res.render('movie', {
+                  movies: { info: theMovie, comments: comments }
+                })
+              }).catch(function(err) {
+                res.render('movieNoComment', {
+                  movies: result.dataValues
+                })
               })
-            }).catch(function(err) {
-              res.render('movieNoComment', {
-                movies: result.dataValues
-              })
-            })
+          }
+          
       }).catch(function(err) {
         res.render('movieNoComment', {
           movies: result.dataValues
