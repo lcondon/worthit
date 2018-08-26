@@ -10,7 +10,7 @@ var moment = require('moment');
 // Get all examples
 apiRouter.get('/movies', function (req, res) {
   if (req.query.s) {
-    var options = { $like: '%' + req.query.s };
+    var options = { $like: '%' + req.query.s + '%' };
     db.Movie.findOne({
       where: {
         title:
@@ -38,6 +38,26 @@ apiRouter.post('/movies', function (req, res) {
       if (body1.Error) {
         res.json(false);
       } else {
+        var movie = {
+          title: body1.Title,
+          routeName: _.camelCase(body1.Title) + body1.Year,
+          year: body1.Year,
+          synopsis: body1.Plot,
+          languages: body1.Language,
+          genres: body1.Genre,
+          director: body1.Director,
+          actors: body1.Actors,
+          ratings: {
+            critic: body1.Metascore,
+            general: parseFloat(body1.imdbRating) * 10,
+            worthit: null
+          },
+          differential: parseFloat(body1.imdbRating) * 10 - parseFloat(body1.Metascore) || 0,
+          poster: body1.Poster
+        }
+        if (body1.Poster === 'N/A') {
+          body1.Poster = '/images/movieplaceholder.gif';
+        }
         var regex = /'/gi;
         var url = body1.Title.replace(regex, '%27');
         var outString = url.replace(/[`~!@#$%^&*()_|+\=?;:",.<>\{\}\[\]\\\/]/g, '');
@@ -51,50 +71,16 @@ apiRouter.post('/movies', function (req, res) {
         };
         request(options, function (err2, response2, metaBody) {
           var body2 = JSON.parse(metaBody);
-          if (body1.Poster === 'N/A') {
-            body1.Poster = '/images/movieplaceholder.gif';
-          }
-          if (body2[0].Message) {
-            db.Movie.create({
-              title: body1.Title,
-              routeName: _.camelCase(body1.Title),
-              year: body1.Year,
-              synopsis: body1.Plot,
-              languages: body1.Language,
-              genres: body1.Genre,
-              director: body1.Director,
-              actors: body1.Actors,
-              ratings: {
-                critic: body1.Metascore,
-                general: parseFloat(body1.imdbRating) * 10,
-                worthit: null
-              },
-              differential: parseFloat(body1.imdbRating) * 10 - parseFloat(body1.Metascore) || 0,
-              poster: body1.Poster
-            }).then(function (results2) {
-              res.send({ redirect: '/movies?s=' + outString });
-            })
-          } else {
-            db.Movie.create({
-              title: body1.Title,
-              routeName: _.camelCase(body1.Title),
-              year: body1.Year,
-              synopsis: body1.Plot,
-              languages: body1.Language,
-              genres: body1.Genre,
-              director: body1.Director,
-              actors: body1.Actors,
-              ratings: {
-                critic: body2[0].Rating.CriticRating,
-                general: parseFloat(body2[0].Rating.UserRating) * 10,
-                worthit: null
-              },
-              differential: parseFloat(body2[0].Rating.UserRating) * 10 - parseFloat(body2[0].Rating.CriticRating) || 0,
-              poster: body1.Poster || '/images/movieplaceholder.gif'
-            }).then(function (results2) {
-              res.send({ redirect: '/movies?s=' + outString });
-            })
-          }
+          if (body2[0].Rating) {
+            movie.ratings.critic = body2[0].Rating.CriticRating;
+            movie.ratings.general = parseFloat(body2[0].Rating.UserRating) * 10;
+            movie.differential = parseFloat(body2[0].Rating.UserRating) * 10 - parseFloat(body2[0].Rating.CriticRating) || 0;
+          } 
+
+          
+          db.Movie.create(movie).then(function (results2) {
+            res.send({ redirect: '/movies?s=' + results2.title });
+        })
         })
       }
     })

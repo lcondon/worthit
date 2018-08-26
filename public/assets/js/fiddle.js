@@ -60,12 +60,21 @@ function changeUser() {
     $('#userKeyframe').text('@keyframes userLoad{0%{-webkit-transform: rotate(0deg);transform: rotate(0deg);}100%{-webkit-transform: rotate(' + uScore + 'deg);transform: rotate(' + uScore + 'deg);}}');
 }
 
+function changeBackground(){
+    if ($("#movieColorNeutral").attr("score") > 15){
+        $("#movieColorNeutral").attr("id", "movieColorGood") 
+    }else if ($("#movieColorNeutral").attr("score") < -15){
+        $("#movieColorNeutral").attr("id", "movieColorBad") 
+    }
+}
+
 $(document).ready(function () {
     console.log(window.location.pathname);
     $('#searchBlack').val('');
     getCriticScore(parseFloat($("#criticCircle").attr("score")), changeCritic);
     getGeneralScore(parseFloat($("#generalCircle").attr("score")), changeGeneral);
     getUserScore(parseFloat($("#userCircle").attr("score")), changeUser);
+    changeBackground();
     if ($("#limitImage").attr("src") == "N/A"){
         $("#limitImage").attr("src", "/images/movieplaceholder.gif") 
     }
