@@ -57,7 +57,7 @@ function changeUser() {
 }
 
 $(document).ready(function () {
-    // console.log(window.location.pathname);
+    console.log(window.location.pathname);
     $('#searchBlack').val('');
     getCriticScore(parseFloat($("#criticCircle").attr("score")), changeCritic);
     getGeneralScore(parseFloat($("#generalCircle").attr("score")), changeGeneral);
@@ -164,6 +164,8 @@ $(document).on('click', '#loginBtn', function (event) {
     // }
 })
 
+$(document).on()
+
 $(document).on('click', '.favStar', function (event) {
     event.preventDefault();
     var movieId = $(this).attr('movie');
@@ -180,16 +182,11 @@ $(document).on('click', '.favStar', function (event) {
                alert('must be logged in to do that')
            }
        })
-
-
-
-
     // $.post('/login', {email: email,
     //         password: $('#password').val()}).then(function(data){
     //             window.location.href = data.redirect;
     //         })
 })
-
 
 $(document).on('click', '#btn-apple', function (event) {
     event.preventDefault();
@@ -223,4 +220,3 @@ $(document).on('click', '#btn-apple', function (event) {
     //             window.location.href = data.redirect;
     //         })
 })
-

@@ -65,17 +65,7 @@
                 <img id="headerImg" src="/images/worthitinverted.png">
             </a>
         </span>
-        <div class="ml-auto no-gutters" id="searchBarHeader">
-						<div class="input-group input-group-lg">
-							<div class="input-group-prepend" id="searchBlackDiv">
-								<span id="searchBlackIcon" class="input-group-text" id="inputGroup-sizing-lg">
-									<i class="fa fa-search fa-fw"></i>
-								</span>
-							</div>
-							<input id="searchBlack" type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" placeholder="Search for a Movie">
-						</div>
-					</div>
-        <span class="margin-navspace">
+        <span class="ml-auto">
             <a href="/login">
                 <img id="loginButton" src="/images/plus.png">
             </a>
@@ -88,13 +78,13 @@
             <div class="col-md-2"></div>
             <div class="col-md-3 col-sm-12 justify-content-center">
                 <span="imageBox">
-                    <i id="" class="fas fa-star favStar" movie="{{movies.info.id}}"></i>
-                    <img id="limitImage" src="{{movies.info.poster}}" class="center-block img-fluid" alt="Responsive image">
+                    <i id="" class="fas fa-star favStar" movie="{{movies.id}}"></i>
+                    <img id="limitImage" src="{{movies.poster}}" class="center-block img-fluid" alt="Responsive image">
                     </span>
             </div>
             <div class="col-md-5">
-                <h1 class="nowrap">{{movies.info.title}}</h1>&nbsp
-                <h4 class="nowrap">{{movies.info.year}}</h4>
+                <h1 class="nowrap">{{movies.title}}</h1>&nbsp
+                <h4 class="nowrap">{{movies.year}}</h4>
                 <hr>
                 <div class="row">
                     <div class="col-4 text-center">
@@ -106,7 +96,7 @@
                             <span class="progress-right">
                                 <span class="progress-bar"></span>
                             </span>
-                            <div class="progress-value" id="criticCircle" score="{{movies.info.ratings.critic}}">%</div>
+                            <div class="progress-value" id="criticCircle" score="{{movies.ratings.critic}}">%</div>
                         </div>
                         <p class = "label">Critic Rating</p>
 
@@ -122,7 +112,7 @@
                             <span class="progress-right">
                                 <span class="progress-bar"></span>
                             </span>
-                            <div class="progress-value" id="generalCircle" score="{{movies.info.ratings.general}}">%</div>
+                            <div class="progress-value" id="generalCircle" score="{{movies.ratings.general}}">%</div>
                         </div>
                         
                         <p class = "label">General Rating</p>
@@ -138,16 +128,16 @@
                             <span class="progress-right">
                                 <span class="progress-bar"></span>
                             </span>
-                            <div class="progress-value" id="userCircle" score="{{movies.info.ratings.worthit}}">%</div>
+                            <div class="progress-value" id="userCircle" score="{{movies.ratings.worthit}}">%</div>
                         </div>
                         <p class = "label">Our Rating</p>
                     </div>
                 </div>
                 <hr>
                 <div class="row" id="movieInfo">
-                    <p class="nowrap" id="biggerTxt">Directed by {{movies.info.director}}</p>&emsp;&emsp;
+                    <p class="nowrap" id="biggerTxt">Directed by {{movies.director}}</p>&emsp;&emsp;
                     <p>{{movies.info.synopsis}}</p>
-                    <p class="nowrap" id="starringTxt">Starring: {{movies.info.actors}}</p>&emsp;&emsp;
+                    <p class="nowrap" id="starringTxt">Starring: {{movies.actors}}</p>&emsp;&emsp;
                 </div>
 
             </div>
@@ -163,12 +153,12 @@
                     <form class="d-inline">
                         <div class="form-group text-center">
                             <div class="d-inline">
-                                <input id="question1" name="question" type="radio" class="with-thumbsup" value="" />
+                                <input id="question1" name="question" type="radio" class="with-thumbsup" value="sel" />
                                 <label for="question1"></label>
                             </div>
                             <p class="nowrap" id="labelPInput">Worth it?</p>
                             <div class="d-inline">
-                                <input id="question2" name="question" type="radio" class="with-thumbsdown" value="" />
+                                <input id="question2" name="question" type="radio" class="with-thumbsdown" value="sel" />
                                 <label for="question2"></label>
                             </div>
                         </div>
@@ -196,13 +186,12 @@
 
                     <div class="collapse" id="commentsBox">
 
-                        {{#each movies.comments}}
 
                         <div class="card card-body commentsBlack">
                             <div class="row">
-                                <div class="commentAuthor">{{user_id}}</div>
-                                <div class="commentText">{{comment}}</div>
-                                <div class="commentVerdict">Verdict: <span id="commentVerdictOut">{{rating}}</span></div>
+                                <div class="commentAuthor"></div>
+                                <div class="commentText"></div>
+                                <div class="commentVerdict">Verdict: <span id="commentVerdictOut"></span></div>
                             </div>
                         </div>
 
@@ -235,8 +224,6 @@
     </script> -->
 
     </div>
-    	<script src="/js/fiddle.js"></script>
-
 
 
 </body>
