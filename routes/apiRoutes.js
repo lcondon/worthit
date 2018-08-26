@@ -18,11 +18,10 @@ apiRouter.get('/movies', function (req, res) {
       }
     }).then(function (results) {
       console.log(results)
-      if (results) {
-        res.json({ redirect: '/movies?s=' + results.title })
-      } else {
-        res.json(false)
-      }
+      res.json({ redirect: '/movies?s=' + results.dataValues.title })
+
+    }).catch(function (err) {
+      res.json(false)
     })
   } else {
     db.Movie.findAll().then(function (results) {
@@ -48,15 +47,12 @@ apiRouter.post('/movies', function (req, res) {
           director: body1.Director,
           actors: body1.Actors,
           ratings: {
-            critic: body1.Metascore,
-            general: parseFloat(body1.imdbRating) * 10,
+            critic: body1.Metascore || 0,
+            general: parseFloat(body1.imdbRating) * 10 || 0,
             worthit: null
           },
           differential: parseFloat(body1.imdbRating) * 10 - parseFloat(body1.Metascore) || 0,
           poster: body1.Poster
-        }
-        if (body1.Poster === 'N/A') {
-          body1.Poster = '/images/movieplaceholder.gif';
         }
         var regex = /'/gi;
         var url = body1.Title.replace(regex, '%27');
@@ -75,12 +71,16 @@ apiRouter.post('/movies', function (req, res) {
             movie.ratings.critic = body2[0].Rating.CriticRating;
             movie.ratings.general = parseFloat(body2[0].Rating.UserRating) * 10;
             movie.differential = parseFloat(body2[0].Rating.UserRating) * 10 - parseFloat(body2[0].Rating.CriticRating) || 0;
-          } 
+          }
+          if (movie.poster == 'N/A') {
+            movie.poster = '/images/movieplaceholder.gif';
+          }
 
-          
           db.Movie.create(movie).then(function (results2) {
             res.send({ redirect: '/movies?s=' + results2.title });
-        })
+          }).catch(function (err) {
+            res.json(false)
+          })
         })
       }
     })
@@ -168,6 +168,7 @@ apiRouter.post('/users', function (req, res) {
 });
 
 apiRouter.put('/users', function (req, res) {
+  console.log(req.isAuthenticated())
   if (req.isAuthenticated()) {
     db.User.findOne({ where: { id: req.user.dataValues.id } }).then(function (results) {
       console.log(results.dataValues.favorites)
@@ -182,15 +183,16 @@ apiRouter.put('/users', function (req, res) {
           })
       } else {
         favoriteValue = JSON.parse(favoriteValue)
-        favoriteValue.push(req.body.movieId)
-
+        if (_.indexOf(favoriteValue, req.body.movieId) < 0) {
+          favoriteValue.push(req.body.movieId)
+        }
         db.User.update({
           favorites: JSON.stringify(favoriteValue)
         }, {
             where: {
               id: req.user.dataValues.id
             }
-          }).then(res.json(false))
+          }).then(res.json(true))
       }
 
     })

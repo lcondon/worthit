@@ -24,14 +24,16 @@ htmlRouter.get('/movies', function (req, res) {
       console.log(result.dataValues)
       var theMovie = result.dataValues;
       db.Rating.findAll({ where: { movie_id: result.id }, order: [['createdAt', 'DESC']] }).then(function (comments) {
-          var totalRatings = comments.length;
-          var worthItRatings = 0;
-          for (var i = 0; i < totalRatings; i++){
-            if (comments.rating == true){
-              worthItRatings++;
-            }
+        var totalRatings = comments.length;
+        var worthItRatings = 0;
+        for (var i = 0; i < totalRatings; i++) {
+          if (comments.rating == true) {
+            worthItRatings++;
           }
-          var userRating = (worthItRatings / totalRatings) * 100;
+        }
+        var userRating = (worthItRatings / totalRatings) * 100;
+        if (comments) {
+
           db.Movie.update({
             differential: userRating - result.ratings.critic || result.ratings.general - result.ratings.critic,
             ratings: {
@@ -43,18 +45,18 @@ htmlRouter.get('/movies', function (req, res) {
               where: {
                 id: result.id
               }
-            }).then(function(data){
+            }).then(function (data) {
               res.render('movie', {
-                movies: { info: theMovie }
+                movies: { info: theMovie, comments: comments }
               })
-            }).catch(function(err) {
-              res.render('movieNoComment', {
-                movies: result.dataValues
-              })
+            }).catch(function (err) {
+              res.json(false)
             })
-      }).catch(function(err) {
+        }
+
+      }).catch(function (err) {
         res.render('movieNoComment', {
-          movies: result.dataValues
+          movies: { info: theMovie }
         })
       })
     }).catch(function (err) {

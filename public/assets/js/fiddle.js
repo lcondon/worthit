@@ -3,13 +3,13 @@ var gScore;
 var uScore;
 
 function getCriticScore(criticScore, cb) {
-    if ((Number.isNaN(criticScore))){
+    if ((Number.isNaN(criticScore))) {
         $('#criticCircle').text('None')
     }
-    else if(criticScore > 50) {
+    else if (criticScore > 50) {
         cScore = criticScore * 360 / 100 - 180
         $('#criticCircle').text(criticScore + "%")
-    } 
+    }
     else {
         $('#criticSwitch').text('.progress.critic .progress-right .progress-bar{animation: criticLoad 1.5s linear forwards 1.8s;}');
         cScore = criticScore * 360 / 100
@@ -60,11 +60,11 @@ function changeUser() {
     $('#userKeyframe').text('@keyframes userLoad{0%{-webkit-transform: rotate(0deg);transform: rotate(0deg);}100%{-webkit-transform: rotate(' + uScore + 'deg);transform: rotate(' + uScore + 'deg);}}');
 }
 
-function changeBackground(){
-    if ($("#movieColorNeutral").attr("score") > 15){
-        $("#movieColorNeutral").attr("id", "movieColorGood") 
-    }else if ($("#movieColorNeutral").attr("score") < -15){
-        $("#movieColorNeutral").attr("id", "movieColorBad") 
+function changeBackground() {
+    if ($("#movieColorNeutral").attr("score") > 15) {
+        $("#movieColorNeutral").attr("id", "movieColorGood")
+    } else if ($("#movieColorNeutral").attr("score") < -15) {
+        $("#movieColorNeutral").attr("id", "movieColorBad")
     }
 }
 
@@ -75,11 +75,11 @@ $(document).ready(function () {
     getGeneralScore(parseFloat($("#generalCircle").attr("score")), changeGeneral);
     getUserScore(parseFloat($("#userCircle").attr("score")), changeUser);
     changeBackground();
-    if ($("#limitImage").attr("src") == "N/A"){
-        $("#limitImage").attr("src", "/images/movieplaceholder.gif") 
+    if ($("#limitImage").attr("src") == "N/A") {
+        $("#limitImage").attr("src", "/images/movieplaceholder.gif")
     }
-    if ($(".movieImageCircle").attr("src") == "N/A"){
-        $(this).attr("src", "/images/notfoundplaceholder.png") 
+    if ($(".movieImageCircle").attr("src") == "N/A") {
+        $(this).attr("src", "/images/notfoundplaceholder.png")
     }
 })
 
@@ -92,21 +92,36 @@ $(document).ready(function () {
 var bind_to = '#searchBlack';
 
 $(document).on('keyup', bind_to, function (event) {
+    $(document).off('keyup', '#searchBlack');
     event.preventDefault();
     console.log(event)
     if (event.keyCode == 13) {
 
-        $("#mainPageSplash").removeClass("rollIn").addClass("spinLoading");
-        $(".searchIconNM").addClass("flash");
-        
         var searchTerm = $(this).val().trim()
         if (searchTerm !== '') {
+            $("#mainPageSplash").removeClass("rollIn").addClass("spinLoading");
+            $(".searchIconNM").addClass("flash");
             // searchTerm = searchTerm.replace(/[`–~!@#$%^&*()_|+\=?;:",.<>\{\}\[\]\\\/]/gi, '');
             console.log(searchTerm)
             // if (searchTerm !== ''){
             var url = '/api/movies?s=' + searchTerm;
             $.get(url).done(function (result) {
-                if (!result) {
+                if (result.redirect) {
+                    console.log(result)
+                    window.location.href = result.redirect;
+                    // $.post(url).done(function (data, text) {
+                    //     console.log(data);
+                    //     console.log(text);
+                    //     if (data.redirect) {
+                    //         window.location.href = data.redirect;
+                    //     }
+                    //     else {
+                    //         alert(`We couldn't find that movie! Please update your search.`);
+                    //         $(".searchIconNM").removeClass("flash");
+                    //         $("#mainPageSplash").removeClass("spinLoading");
+                    //     }
+                    // });
+                } else {
                     $.post(url).done(function (data, text) {
                         console.log(data);
                         console.log(text);
@@ -119,20 +134,15 @@ $(document).on('keyup', bind_to, function (event) {
                             $("#mainPageSplash").removeClass("spinLoading");
                         }
                     });
-                } else {
-                    if (result.redirect) {
-                        window.location.href = result.redirect;
-                    }
-                    else {
-                        alert(`We couldn't find that movie! Please update your search.`);
-                        $(".searchIconNM").removeClass("flash");
-                        $("#mainPageSplash").removeClass("spinLoading");
-                    }
+                    // alert(`We couldn't find that movie! Please update your search.`);
+                    // $(".searchIconNM").removeClass("flash");
+                    // $("#mainPageSplash").removeClass("spinLoading");
+
                 }
             })
 
         }
-        // $(document).off('keyup', bind_to);
+        $(document).off('keyup', bind_to);
     }
 });
 
@@ -141,6 +151,7 @@ $(document).on(`focusout`, bind_to, function (event) {
 })
 
 $(document).on('click', '#registerButton', function (event) {
+    $(document).off('click', '#registerButton');
     var email = $('#input2EmailForm').val().trim();
     var p1 = $('#input2PasswordForm').val();
     var p2 = $('#input2Password2Form').val();
@@ -168,50 +179,54 @@ $(document).on('click', '#registerButton', function (event) {
 })
 
 $(document).on('click', '#loginBtn', function (event) {
+    $(document).off('click', '#loginBtn');
     event.preventDefault();
     console.log(event)
     var email = $('#email').val().trim();
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     // if (regex.test(email)) {
-        $.post('/login', {email: email,
-            password: $('#password').val()}).then(function(data){
-                window.location.href = data.redirect;
-            })
+    $.post('/login', {
+        email: email,
+        password: $('#password').val()
+    }).then(function (data) {
+        window.location.href = data.redirect;
+    })
     // } else {
-        // alert('Invalid email or password!')
+    // alert('Invalid email or password!')
     // }
 })
 
-$(document).on('click', '#question1', function(event){
+$(document).on('click', '#question1', function (event) {
     event.preventDefault();
     $('#question1').attr('value', 'selected');
     $('#question2').attr('value', '');
-    
+
 })
 
-$(document).on('click', '#question2', function(event){
+$(document).on('click', '#question2', function (event) {
     event.preventDefault();
     $('#question1').attr('value', '');
     $('#question2').attr('value', 'selected');
-    
+
 })
 
 $(document).on('click', '.favStar', function (event) {
+    $(document).off('click', ".favStar");
     event.preventDefault();
     var movieId = $(this).attr('movie');
     console.log(event)
-       $.ajax({
-           url: '/api/users',
-           method: 'PUT', 
-           data: {movieId: movieId}
-       }).then(function(data){
-           if (data) {
-             $(this).toggleClass('favorited')
-               alert('success')
-           } else {
-               alert('must be logged in to do that')
-           }
-       })
+    $.ajax({
+        url: '/api/users',
+        method: 'PUT',
+        data: { movieId: movieId }
+    }).then(function (data) {
+        console.log(data)
+        if (data) {
+            $(".favStar").toggleClass('favorited')
+        } else {
+            alert('must be logged in to do that')
+        }
+    })
     // $.post('/login', {email: email,
     //         password: $('#password').val()}).then(function(data){
     //             window.location.href = data.redirect;
@@ -219,6 +234,7 @@ $(document).on('click', '.favStar', function (event) {
 })
 
 $(document).on('click', '#btn-apple', function (event) {
+    $(document).off('click', '#btn-apple');
     event.preventDefault();
     console.log($('.favStar').attr('movie'))
     console.log($('#question1').attr('value'))
@@ -230,21 +246,22 @@ $(document).on('click', '#btn-apple', function (event) {
     } else if ($('#question2').attr('value') === 'selected') {
         rating = false
     }
-       $.ajax({
-           url: '/api/ratings',
-           method: 'POST', 
-           data: {
-               rating: rating,
-               movie_id: $('.favStar').attr('movie'),
-               comment: comment
-           }
-       }).then(function(data){
+    $.ajax({
+        url: '/api/ratings',
+        method: 'POST',
+        data: {
+            rating: rating,
+            movie_id: $('.favStar').attr('movie'),
+            comment: comment
+        }
+    }).then(function (data) {
         if (data) {
-
+            $(document).off('keyup', bind_to);
+            location.reload();
         } else {
             alert('must be logged in')
         }
-       })
+    })
     // $.post('/login', {email: email,
     //         password: $('#password').val()}).then(function(data){
     //             window.location.href = data.redirect;

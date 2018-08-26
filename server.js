@@ -19,27 +19,25 @@ app.use(express.static("public/assets"));
 app.use(bodyParser.urlencoded({ extended: true }));
 require('./config/passport')(app);
 // Handlebars
-app.engine("handlebars", bars({defaultLayout: "main"}));
+app.engine("handlebars", bars({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Routes
 app.use('/api', apiRouter);
 app.use('/', htmlRouter);
 
-Handlebars.registerHelper("inc", function(value, options)
-{
-    return parseInt(value) + 1;
+Handlebars.registerHelper("inc", function (value, options) {
+  return parseInt(value) + 1;
 });
 
 //Handles Results Numbers
-Handlebars.registerHelper("inc", function(value, options)
-{
-    return parseInt(value) + 1;
+Handlebars.registerHelper("inc", function (value, options) {
+  return parseInt(value) + 1;
 });
 
 var syncOptions = { force: true };
 
-db.sequelize.sync(syncOptions).then(function () {
+db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
     console.log("Listening on port " + PORT);
   });
