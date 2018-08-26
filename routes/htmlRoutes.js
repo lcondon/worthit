@@ -22,10 +22,36 @@ htmlRouter.get('/movies', function (req, res) {
     var options = { $like: '%' + req.query.s + '%' };
     db.Movie.findOne({ where: { title: options } }).then(function (result) {
       console.log(result.dataValues)
+      var theMovie = result.dataValues;
       db.Rating.findAll({ where: { movie_id: result.id }, order: [['createdAt', 'DESC']] }).then(function (comments) {
-          res.render('movie', {
-            movies: { info: result, comments: comments }
-          })
+          var totalRatings = comments.length;
+          var worthItRatings = 0;
+          for (var i = 0; i < totalRatings; i++){
+            if (comments.rating == true){
+              worthItRatings++;
+            }
+          }
+          var userRating = (worthItRatings / totalRatings) * 100;
+          db.Movie.update({
+            differential: userRating - result.ratings.critic || result.ratings.general - result.ratings.critic,
+            ratings: {
+              critic: result.ratings.critic,
+              general: result.ratings.general,
+              worthit: userRating || null
+            }
+          }, {
+              where: {
+                id: result.id
+              }
+            }).then(function(data){
+              res.render('movie', {
+                movies: { info: theMovie }
+              })
+            }).catch(function(err) {
+              res.render('movieNoComment', {
+                movies: result.dataValues
+              })
+            })
       }).catch(function(err) {
         res.render('movieNoComment', {
           movies: result.dataValues
