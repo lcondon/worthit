@@ -880,7 +880,7 @@ input[type=radio].with-thumbsdown:focus ~ label
 }
 
 @media only screen and (min-width: 568px) 
-  and (max-width: 768px) {
+  and (max-width: 767px) {
 
 	#searchBarHeader {
 		border-radius: 2rem;
@@ -894,6 +894,33 @@ input[type=radio].with-thumbsdown:focus ~ label
 		height: 10vh;
 		margin-bottom: 5rem; 
 		padding-right: 5%;
+	}
+
+	#splashPageFooter {
+		position: fixed;
+		padding-top: 4vh;
+		margin-top: 4vh;
+		bottom: 0px;
+		height: auto;
+	}
+
+	#mainPageSplash {
+		max-width: 50%;
+		max-height: auto;
+		margin-left: 25%;
+		margin-right: auto;
+		margin-bottom: 4%;
+	}
+
+	#splashPageHeader {
+		margin-bottom: 8vh;
+	}
+
+	.splashBtn {
+		font-size: 150%!important;
+		margin-top: 16px;
+		margin-bottom: 16px;
+		padding: 12px!important;
 	}
 
 }
@@ -925,9 +952,11 @@ input[type=radio].with-thumbsdown:focus ~ label
 	}
 
 	#splashPageFooter {
-		position: relative;
-		padding-top: 4vh;
-		margin-top: 4vh;
+		position: fixed;
+		padding-top: 2vh;
+		margin-top: 2vh;
+		height: auto;
+		padding-bottom: 2vh;
 	}
 
 	#mainPageSplash {
@@ -940,6 +969,11 @@ input[type=radio].with-thumbsdown:focus ~ label
 
 	#splashPageHeader {
 		margin-bottom: 8vh;
+	}
+
+	.splashBtn {
+		margin-top: 2px;
+		margin-bottom: 2px;
 	}
 
   }
