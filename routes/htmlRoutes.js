@@ -19,11 +19,20 @@ htmlRouter.get(["/", '/home', '/index'], function (req, res) {
 
 htmlRouter.get('/movies', function (req, res) {
   if (req.query.s) {
-    var options = { $like: '%' + req.query.s };
+    var options = { $like: '%' + req.query.s + '%' };
     db.Movie.findOne({ where: { title: options } }).then(function (result) {
-      res.render('movie', {
-        movie: result
+      db.Ratings.findAll({ where: { movie_id: result.id }, order: [['createdAt', 'DESC']] }).then(function (comments) {
+        if (comments) {
+          res.render('movie', {
+            movies: { info: result, comments: comments }
+          })
+        } else {
+          res.render('movie', {
+            movies: { info: result}
+          })
+        }
       })
+
     }).catch(function (err) {
       res.json(false)
     })
@@ -35,10 +44,13 @@ htmlRouter.get('/movies', function (req, res) {
 
 htmlRouter.get('/movies/notworthit', function (req, res) {
   db.Movie.findAll({ limit: 10, order: [['differential', 'ASC']] }).then(function (result) {
-    res.render('results', { 
-      movies: {results: result,
+    res.render('results', {
+      movies: {
+        results: result,
         color: 'movieColorBad',
-        pageTitle: 'Not WorthIt' }})
+        pageTitle: 'Not WorthIt'
+      }
+    })
   })
 })
 
@@ -47,10 +59,13 @@ htmlRouter.get('/movies/worthit', function (req, res) {
     limit: 10,
     order: [['differential', 'DESC']]
   }).then(function (result) {
-    res.render('results', { 
-      movies: {results: result,
+    res.render('results', {
+      movies: {
+        results: result,
         color: 'movieColorGood',
-        pageTitle: 'WorthIt' }})
+        pageTitle: 'WorthIt'
+      }
+    })
   })
 })
 
@@ -60,10 +75,13 @@ htmlRouter.get('/movies/categories', function (req, res) {
 
 htmlRouter.get('/movies/categories/:category', function (req, res) {
   db.Movie.findAll({ where: { genres: { $like: "%" + req.params.category + "%" } } }).then(function (movies) {
-    res.render('results', { 
-      movies: {results: movies,
+    res.render('results', {
+      movies: {
+        results: movies,
         color: 'movieColorNeutral',
-      pageTitle: req.params.category }});
+        pageTitle: req.params.category
+      }
+    });
   });
 })
 
