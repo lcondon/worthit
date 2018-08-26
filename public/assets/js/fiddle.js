@@ -87,7 +87,8 @@ $(document).on('keyup', bind_to, function (event) {
     console.log(event)
     if (event.keyCode == 13) {
 
-		$("#mainPageSplash").removeClass("rollIn").addClass("spinLoading");
+        $("#mainPageSplash").removeClass("rollIn").addClass("spinLoading");
+        $(".searchIconNM").addClass("flash");
         
         var searchTerm = $(this).val().trim()
         if (searchTerm !== '') {
@@ -104,7 +105,9 @@ $(document).on('keyup', bind_to, function (event) {
                             window.location.href = data.redirect;
                         }
                         else {
-                            alert(`We couldn't find that movie! Please update your search.`)
+                            alert(`We couldn't find that movie! Please update your search.`);
+                            $(".searchIconNM").removeClass("flash");
+                            $("#mainPageSplash").removeClass("spinLoading");
                         }
                     });
                 } else {
@@ -112,7 +115,9 @@ $(document).on('keyup', bind_to, function (event) {
                         window.location.href = result.redirect;
                     }
                     else {
-                        alert(`We couldn't find that movie! Please update your search.`)
+                        alert(`We couldn't find that movie! Please update your search.`);
+                        $(".searchIconNM").removeClass("flash");
+                        $("#mainPageSplash").removeClass("spinLoading");
                     }
                 }
             })

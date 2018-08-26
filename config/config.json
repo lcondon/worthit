@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "kvgsql",
+    "password": "Cra1sins",
     "database": "worthitdb",
     "host": "127.0.0.1",
     "dialect": "mysql",
@@ -11,7 +11,7 @@
   },
   "test": {
     "username": "root",
-    "password": "kvgsql",
+    "password": "Cra1sins",
     "database": "testdb",
     "host": "localhost",
     "dialect": "mysql",
