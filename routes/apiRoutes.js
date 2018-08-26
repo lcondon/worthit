@@ -55,9 +55,6 @@ apiRouter.post('/movies', function (req, res) {
           differential: parseFloat(body1.imdbRating) * 10 - parseFloat(body1.Metascore) || 0,
           poster: body1.Poster
         }
-        if (body1.Poster === 'N/A') {
-          body1.Poster = '/images/movieplaceholder.gif';
-        }
         var regex = /'/gi;
         var url = body1.Title.replace(regex, '%27');
         var outString = url.replace(/[`~!@#$%^&*()_|+\=?;:",.<>\{\}\[\]\\\/]/g, '');
@@ -76,7 +73,9 @@ apiRouter.post('/movies', function (req, res) {
             movie.ratings.general = parseFloat(body2[0].Rating.UserRating) * 10;
             movie.differential = parseFloat(body2[0].Rating.UserRating) * 10 - parseFloat(body2[0].Rating.CriticRating) || 0;
           } 
-
+          if (movie.poster == 'N/A') {
+            movie.poster = '/images/movieplaceholder.gif';
+          }
           
           db.Movie.create(movie).then(function (results2) {
             res.send({ redirect: '/movies?s=' + results2.title });
