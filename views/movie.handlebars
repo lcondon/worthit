@@ -78,13 +78,13 @@
             <div class="col-md-2"></div>
             <div class="col-md-3 col-sm-12 justify-content-center">
                 <span="imageBox">
-                    <i id="" class="fas fa-star favStar" movie="{{movie.id}}"></i>
-                    <img id="limitImage" src="{{movie.poster}}" class="center-block img-fluid" alt="Responsive image">
+                    <i id="" class="fas fa-star favStar" movie="{{movies.info.id}}"></i>
+                    <img id="limitImage" src="{{movies.info.poster}}" class="center-block img-fluid" alt="Responsive image">
                     </span>
             </div>
             <div class="col-md-5">
-                <h1 class="nowrap">{{movie.title}}</h1>&nbsp
-                <h4 class="nowrap">{{movie.year}}</h4>
+                <h1 class="nowrap">{{movies.info.title}}</h1>&nbsp
+                <h4 class="nowrap">{{movies.info.year}}</h4>
                 <hr>
                 <div class="row">
                     <div class="col-4 text-center">
@@ -96,7 +96,7 @@
                             <span class="progress-right">
                                 <span class="progress-bar"></span>
                             </span>
-                            <div class="progress-value" id="criticCircle" score="{{movie.ratings.critic}}">%</div>
+                            <div class="progress-value" id="criticCircle" score="{{movies.info.ratings.critic}}">%</div>
                         </div>
                         <p class = "label">Critic Rating</p>
 
@@ -112,7 +112,7 @@
                             <span class="progress-right">
                                 <span class="progress-bar"></span>
                             </span>
-                            <div class="progress-value" id="generalCircle" score="{{movie.ratings.general}}">%</div>
+                            <div class="progress-value" id="generalCircle" score="{{movies.info.ratings.general}}">%</div>
                         </div>
                         
                         <p class = "label">General Rating</p>
@@ -128,16 +128,16 @@
                             <span class="progress-right">
                                 <span class="progress-bar"></span>
                             </span>
-                            <div class="progress-value" id="userCircle" score="{{movie.ratings.worthit}}">%</div>
+                            <div class="progress-value" id="userCircle" score="{{movies.info.ratings.worthit}}">%</div>
                         </div>
                         <p class = "label">Our Rating</p>
                     </div>
                 </div>
                 <hr>
                 <div class="row" id="movieInfo">
-                    <p class="nowrap" id="biggerTxt">Directed by {{movie.director}}</p>&emsp;&emsp;
-                    <p>{{movie.synopsis}}</p>
-                    <p class="nowrap" id="starringTxt">Starring: {{movie.actors}}</p>&emsp;&emsp;
+                    <p class="nowrap" id="biggerTxt">Directed by {{movies.info.director}}</p>&emsp;&emsp;
+                    <p>{{movies.info.synopsis}}</p>
+                    <p class="nowrap" id="starringTxt">Starring: {{movies.info.actors}}</p>&emsp;&emsp;
                 </div>
 
             </div>
@@ -186,13 +186,13 @@
 
                     <div class="collapse" id="commentsBox">
 
-                        {{#each comments.results}}
+                        {{#each movies.comments}}
 
                         <div class="card card-body commentsBlack">
                             <div class="row">
-                                <div class="commentAuthor">{{comment.author}}</div>
-                                <div class="commentText">{{comment.body}}</div>
-                                <div class="commentVerdict">Verdict: <span id="commentVerdictOut">{{comment.verdict}}</span></div>
+                                <div class="commentAuthor">{{user_id}}</div>
+                                <div class="commentText">{{comment}}</div>
+                                <div class="commentVerdict">Verdict: <span id="commentVerdictOut">{{rating}}</span></div>
                             </div>
                         </div>
 

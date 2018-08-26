@@ -65,8 +65,16 @@ $(document).ready(function () {
     if ($("#limitImage").attr("src") == "N/A"){
         $("#limitImage").attr("src", "/images/movieplaceholder.gif") 
     }
-}
-)
+    if ($(".movieImageCircle").attr("src") == "N/A"){
+        $(this).attr("src", "/images/notfoundplaceholder.png") 
+    }
+})
+
+// $(".movieImageCircle").ready(function(){
+//     if ($(this).attr("src") == "N/A"){
+//         $(this).attr("src", "/images/notfoundplaceholder.png") 
+//     }
+// })
 
 var bind_to = '#searchBlack';
 
@@ -79,7 +87,7 @@ $(document).on('keyup', bind_to, function (event) {
         
         var searchTerm = $(this).val().trim()
         if (searchTerm !== '') {
-            searchTerm = searchTerm.replace(/[`–~!@#$%^&*()_|+\=?;:",.<>\{\}\[\]\\\/]/gi, '');
+            // searchTerm = searchTerm.replace(/[`–~!@#$%^&*()_|+\=?;:",.<>\{\}\[\]\\\/]/gi, '');
             console.log(searchTerm)
             // if (searchTerm !== ''){
             var url = '/api/movies?s=' + searchTerm;
@@ -182,4 +190,37 @@ $(document).on('click', '.favStar', function (event) {
     //         })
 })
 
+
+$(document).on('click', '#btn-apple', function (event) {
+    event.preventDefault();
+    console.log($('.favStar').attr('movie'))
+    console.log($('#question1').checked)
+    console.log($('#question2').checked)
+    var rating;
+    var comment = $('#tallerComments').val().trim();
+    if ($('#question1').checked) {
+        rating = 'worthit'
+    } else if ($('#question2').checked) {
+        rating = 'notworthit'
+    }
+       $.ajax({
+           url: '/api/ratings',
+           method: 'POST', 
+           data: {
+               rating: rating,
+               movie_id: $('.favStar').attr('movie'),
+               comment: comment
+           }
+       }).then(function(data){
+        if (data) {
+
+        } else {
+            alert('must be logged in')
+        }
+       })
+    // $.post('/login', {email: email,
+    //         password: $('#password').val()}).then(function(data){
+    //             window.location.href = data.redirect;
+    //         })
+})
 

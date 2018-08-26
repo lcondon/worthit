@@ -37,7 +37,8 @@ module.exports = function(sequelize, DataTypes) {
       },
       poster: {
         type: DataTypes.STRING,
-        allowNull: false
+        isUrl: true,
+        defaultValue: '/images/movieplaceholder.gif'
       }, 
       ratings : {
         type: DataTypes.JSON,
