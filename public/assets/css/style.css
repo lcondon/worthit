@@ -638,6 +638,27 @@ button {
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
+.flash {
+    -webkit-animation-name: flash-animation;
+    -webkit-animation-duration: 0.5s;
+
+    animation-name: flash-animation;
+    animation-duration: 0.5s;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+
+}
+
+@-webkit-keyframes flash-animation {  
+    from { background: goldenrod; }
+    to   { background: default; }
+}
+
+@keyframes flash-animation {  
+    from { background: goldenrod; }
+    to   { background: default; }
+}
+
 @-webkit-keyframes rollIn {
 	from {
 	  opacity: 0;

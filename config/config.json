@@ -11,7 +11,7 @@
   },
   "test": {
     "username": "root",
-    "password": "kvgsql",
+    "password": "Cra1sins",
     "database": "testdb",
     "host": "localhost",
     "dialect": "mysql",
