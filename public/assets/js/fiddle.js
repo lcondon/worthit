@@ -164,7 +164,19 @@ $(document).on('click', '#loginBtn', function (event) {
     // }
 })
 
-$(document).on()
+$(document).on('click', '#question1', function(event){
+    event.preventDefault();
+    $('#question1').attr('value', 'selected');
+    $('#question2').attr('value', '');
+    
+})
+
+$(document).on('click', '#question2', function(event){
+    event.preventDefault();
+    $('#question1').attr('value', '');
+    $('#question2').attr('value', 'selected');
+    
+})
 
 $(document).on('click', '.favStar', function (event) {
     event.preventDefault();
