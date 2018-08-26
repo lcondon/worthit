@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       },
       year: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
       },
       synopsis: {
         type: DataTypes.TEXT,
@@ -37,7 +37,6 @@ module.exports = function(sequelize, DataTypes) {
       },
       poster: {
         type: DataTypes.STRING,
-        isUrl: true,
         defaultValue: '/images/movieplaceholder.gif'
       }, 
       ratings : {
