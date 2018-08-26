@@ -118,7 +118,7 @@ $(document).on('keyup', bind_to, function (event) {
             })
 
         }
-        $(document).off('keyup', bind_to);
+        // $(document).off('keyup', bind_to);
     }
 });
 
@@ -168,7 +168,19 @@ $(document).on('click', '#loginBtn', function (event) {
     // }
 })
 
-$(document).on()
+$(document).on('click', '#question1', function(event){
+    event.preventDefault();
+    $('#question1').attr('value', 'selected');
+    $('#question2').attr('value', '');
+    
+})
+
+$(document).on('click', '#question2', function(event){
+    event.preventDefault();
+    $('#question1').attr('value', '');
+    $('#question2').attr('value', 'selected');
+    
+})
 
 $(document).on('click', '.favStar', function (event) {
     event.preventDefault();
@@ -195,14 +207,14 @@ $(document).on('click', '.favStar', function (event) {
 $(document).on('click', '#btn-apple', function (event) {
     event.preventDefault();
     console.log($('.favStar').attr('movie'))
-    console.log($('#question1').checked)
-    console.log($('#question2').checked)
+    console.log($('#question1').attr('value'))
+    console.log($('#question2').attr('value'))
     var rating;
     var comment = $('#tallerComments').val().trim();
-    if ($('#question1').checked) {
-        rating = 'worthit'
-    } else if ($('#question2').checked) {
-        rating = 'notworthit'
+    if ($('#question1').attr('value') === 'selected') {
+        rating = true
+    } else if ($('#question2').attr('value') === 'selected') {
+        rating = false
     }
        $.ajax({
            url: '/api/ratings',
