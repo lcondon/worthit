@@ -24,41 +24,39 @@ htmlRouter.get('/movies', function (req, res) {
       console.log(result.dataValues)
       var theMovie = result.dataValues;
       db.Rating.findAll({ where: { movie_id: result.id }, order: [['createdAt', 'DESC']] }).then(function (comments) {
-          var totalRatings = comments.length;
-          var worthItRatings = 0;
-          for (var i = 0; i < totalRatings; i++){
-            if (comments.rating == true){
-              worthItRatings++;
-            }
+        var totalRatings = comments.length;
+        var worthItRatings = 0;
+        for (var i = 0; i < totalRatings; i++) {
+          if (comments.rating == true) {
+            worthItRatings++;
           }
-          var userRating = (worthItRatings / totalRatings) * 100;
-          if (comments) {
+        }
+        var userRating = (worthItRatings / totalRatings) * 100;
+        if (comments) {
 
-            db.Movie.update({
-              differential: userRating - result.ratings.critic || result.ratings.general - result.ratings.critic,
-              ratings: {
-                critic: result.ratings.critic,
-                general: result.ratings.general,
-                worthit: userRating || null
+          db.Movie.update({
+            differential: userRating - result.ratings.critic || result.ratings.general - result.ratings.critic,
+            ratings: {
+              critic: result.ratings.critic,
+              general: result.ratings.general,
+              worthit: userRating || null
+            }
+          }, {
+              where: {
+                id: result.id
               }
-            }, {
-                where: {
-                  id: result.id
-                }
-              }).then(function(data){
-                res.render('movie', {
-                  movies: { info: theMovie, comments: comments }
-                })
-              }).catch(function(err) {
-                res.render('movieNoComment', {
-                  movies: result.dataValues
-                })
+            }).then(function (data) {
+              res.render('movie', {
+                movies: { info: theMovie, comments: comments }
               })
-          }
-          
-      }).catch(function(err) {
+            }).catch(function (err) {
+              res.json(false)
+            })
+        }
+
+      }).catch(function (err) {
         res.render('movieNoComment', {
-          movies: result.dataValues
+          movies: { info: theMovie }
         })
       })
     }).catch(function (err) {

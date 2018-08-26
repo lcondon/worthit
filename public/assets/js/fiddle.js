@@ -97,17 +97,31 @@ $(document).on('keyup', bind_to, function (event) {
     console.log(event)
     if (event.keyCode == 13) {
 
-        $("#mainPageSplash").removeClass("rollIn").addClass("spinLoading");
-        $(".searchIconNM").addClass("flash");
-
         var searchTerm = $(this).val().trim()
         if (searchTerm !== '') {
+            $("#mainPageSplash").removeClass("rollIn").addClass("spinLoading");
+            $(".searchIconNM").addClass("flash");
             // searchTerm = searchTerm.replace(/[`–~!@#$%^&*()_|+\=?;:",.<>\{\}\[\]\\\/]/gi, '');
             console.log(searchTerm)
             // if (searchTerm !== ''){
             var url = '/api/movies?s=' + searchTerm;
             $.get(url).done(function (result) {
-                if (!result) {
+                if (result.redirect) {
+                    console.log(result)
+                    window.location.href = result.redirect;
+                    // $.post(url).done(function (data, text) {
+                    //     console.log(data);
+                    //     console.log(text);
+                    //     if (data.redirect) {
+                    //         window.location.href = data.redirect;
+                    //     }
+                    //     else {
+                    //         alert(`We couldn't find that movie! Please update your search.`);
+                    //         $(".searchIconNM").removeClass("flash");
+                    //         $("#mainPageSplash").removeClass("spinLoading");
+                    //     }
+                    // });
+                } else {
                     $.post(url).done(function (data, text) {
                         console.log(data);
                         console.log(text);
@@ -120,15 +134,10 @@ $(document).on('keyup', bind_to, function (event) {
                             $("#mainPageSplash").removeClass("spinLoading");
                         }
                     });
-                } else {
-                    if (result.redirect) {
-                        window.location.href = result.redirect;
-                    }
-                    else {
-                        alert(`We couldn't find that movie! Please update your search.`);
-                        $(".searchIconNM").removeClass("flash");
-                        $("#mainPageSplash").removeClass("spinLoading");
-                    }
+                    // alert(`We couldn't find that movie! Please update your search.`);
+                    // $(".searchIconNM").removeClass("flash");
+                    // $("#mainPageSplash").removeClass("spinLoading");
+
                 }
             })
 
