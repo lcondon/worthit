@@ -3,10 +3,14 @@ var gScore;
 var uScore;
 
 function getCriticScore(criticScore, cb) {
-    if (criticScore > 50) {
+    if ((Number.isNaN(criticScore))){
+        $('#criticCircle').text('None')
+    }
+    else if(criticScore > 50) {
         cScore = criticScore * 360 / 100 - 180
         $('#criticCircle').text(criticScore + "%")
-    } else {
+    } 
+    else {
         $('#criticSwitch').text('.progress.critic .progress-right .progress-bar{animation: criticLoad 1.5s linear forwards 1.8s;}');
         cScore = criticScore * 360 / 100
         $('#criticCircle').text(criticScore + "%")
