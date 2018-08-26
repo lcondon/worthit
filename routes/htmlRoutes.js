@@ -24,7 +24,7 @@ htmlRouter.get('/movies', function (req, res) {
       console.log(result.dataValues)
       db.Rating.findAll({ where: { movie_id: result.id }, order: [['createdAt', 'DESC']] }).then(function (comments) {
           res.render('movie', {
-            movies: { info: result, comments: comments }
+            movies: { info: result, comments: comments}
           })
       }).catch(function(err) {
         res.render('movieNoComment', {
