@@ -52,7 +52,6 @@ htmlRouter.get('/movies', function (req, res) {
                 movies: result.dataValues
               })
             })
-
       }).catch(function(err) {
         res.render('movieNoComment', {
           movies: result.dataValues
