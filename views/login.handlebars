@@ -26,8 +26,8 @@
         <div class="row justify-content-center">
             <div class="accordion col-md-6 col-12 card d-block border-0 py-2" id="accordionExample">
                 <div class="card">
-                    <div class="card-header col-12 d-inline-flex panel-heading" id="headingOne">
-                        <h5 class="mb-0">
+                    <div class="card-header col-12 panel-heading clearfix" id="headingOne">
+                        <div class="float-left">
                             <button class="btn btn-login btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                                 aria-controls="collapseOne">
                                 Log In
@@ -36,7 +36,16 @@
                                 aria-controls="collapseTwo">
                                 Register
                             </button>
-                        </h5>
+                            
+                        </div>
+                        <div class="float-right">
+                           <a href="/movies/favorites"><button type="button" class="btn btn-danger btn-favorites">
+                                Favorites
+                            </button></a>
+                            <a href="/logout"><button type="button" class="btn btn-warning btn-logout">
+                                Log Out
+                            </button></a>
+                        </div>
                     </div>
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="card">

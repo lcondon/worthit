@@ -6,6 +6,9 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.INTEGER,
         allowNull: false
       },
+      user_name:{
+        type: DataTypes.STRING
+      },
       movie_id: {
         type: DataTypes.INTEGER,
         allowNull: false

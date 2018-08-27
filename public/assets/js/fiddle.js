@@ -15,7 +15,7 @@ function getCriticScore(criticScore, cb) {
         cScore = criticScore * 360 / 100
         $('#criticCircle').text(criticScore + "%")
     }
-    cb(cScore)
+    cb()
 }
 
 function getGeneralScore(generalScore, cb) {
@@ -27,12 +27,12 @@ function getGeneralScore(generalScore, cb) {
         gScore = generalScore * 360 / 100
         $('#generalCircle').text(generalScore + "%")
     }
-    cb(cScore)
+    cb()
 }
 
 function getUserScore(userScore, cb) {
     var testScore = userScore * 2;
-    if (Number.isNaN(testScore)) {
+    if (Number.isNaN(userScore)) {
         $('#userCircle').text('None')
     } else if (userScore > 50) {
         uScore = userScore * 360 / 100 - 180
@@ -42,7 +42,7 @@ function getUserScore(userScore, cb) {
         uScore = userScore * 360 / 100
         $('#userCircle').text(userScore + "%")
     }
-    cb(cScore)
+    cb()
 }
 
 function changeCritic() {
@@ -196,16 +196,14 @@ $(document).on('click', '#loginBtn', function (event) {
 })
 
 $(document).on('click', '#question1', function (event) {
-    event.preventDefault();
-    $('#question1').attr('value', 'selected');
-    $('#question2').attr('value', '');
-
+    $('#question1').attr('checked', 'checked');
+    $('#question2').removeAttr('checked');
 })
 
 $(document).on('click', '#question2', function (event) {
-    event.preventDefault();
-    $('#question1').attr('value', '');
-    $('#question2').attr('value', 'selected');
+    
+    $('#question2').attr('checked', 'checked');
+    $('#question1').removeAttr('checked');
 
 })
 
@@ -239,9 +237,9 @@ $(document).on('click', '#btn-apple', function (event) {
     event.preventDefault();
     var rating;
     var comment = $('#tallerComments').val().trim();
-    if ($('#question1').attr('value') === 'selected') {
+    if ($('#question1').attr('checked') === 'checked') {
         rating = true
-    } else if ($('#question2').attr('value') === 'selected') {
+    } else if ($('#question2').attr('checked') === 'checked') {
         rating = false
     }
     $.ajax({
