@@ -92,27 +92,32 @@ $(document).on('keyup', bind_to, function (event) {
             // searchTerm = searchTerm.replace(/[`–~!@#$%^&*()_|+\=?;:",.<>\{\}\[\]\\\/]/gi, '');
             // if (searchTerm !== ''){
             var url = '/api/movies?s=' + searchTerm;
-            $.get(url).done(function (result) {
-                if (result.redirect) {
-                    window.location.href = result.redirect;
-                } else {
-                    $.post(url).done(function (data, text) {
-                        if (data.redirect) {
-                            window.location.href = data.redirect;
-                        }
-                        else {
+            $.ajax({
+                url: url, 
+                method: 'GET',
+                statusCode: {
+                    404: function(){
+                        $.post({url: url, method: 'POST', statusCode: {404: function(){
                             $('.modal-body').html(`<p class="text-center">We couldn't find that movie! Please update your search.</p>`)
                             $('#warningModal').modal({
                                 show: true
                             })
                             $(".searchIconNM").removeClass("flash");
                             $("#mainPageSplash").removeClass("spinLoading");
-                        }
-                    });
+                        }}}).done(function (data, text) {
+                            if (data.redirect) {
+                                window.location.href = data.redirect;
+                            }
+                        });
+                    }
                 }
+            }).done(function (result) {
+                if (result.redirect) {
+                    window.location.href = result.redirect;
+                } 
             })
         }
-        $(document).bind('keyup', '#searchBlack');
+        $(document).bind('keyup', $('#searchBlack'));
     }
 });
 
@@ -214,21 +219,23 @@ function favorite(event) {
     $(document).off('click', ".favStar");
     event.preventDefault();
     var movieId = $('.favStar').attr('movie');
-    console.log(movieId)
     $.ajax({
         url: '/api/users',
         type: 'PUT',
-        data: { movieId: movieId }
-    }).then(function (data) {
-        if (data) {
+        data: { movieId: movieId },
+        success: function(){
             $(".favStar").toggleClass('favorited')
-        } else {
-            $('.modal-title').text('Error')
-            $('.modal-body').html(`<p class="text-center">You must be logged in to favorite movies!</p>`)
-            $('#warningModal').modal({
-                show: true
-            })
+        },
+        statusCode: {
+            403: function(){
+                $('.modal-title').text('Error')
+                $('.modal-body').html(`<p class="text-center">You must be logged in to favorite movies!</p>`)
+                $('#warningModal').modal({
+                    show: true
+                })
+            }
         }
+    }).then(function (data) {
         $(document).on('click', '.favStar', function (event) { favorite(event) })
     })
 }
@@ -249,17 +256,19 @@ $(document).on('click', '#btn-apple', function (event) {
             rating: rating,
             movie_id: $('.favStar').attr('movie'),
             comment: comment
-        }
-    }).then(function (data) {
-        if (data) {
+        },
+        success: function() {
             $(document).off('click', '#btn-apple');
             location.reload();
-        } else {
-            $('.modal-title').text('Error')
-            $('.modal-body').html(`<p class="text-center">You must be logged in to rate movies!</p>`)
-            $('#warningModal').modal({
-                show: true
-            })
+        },
+        statusCode: {
+            403: function(){
+                $('.modal-title').text('Error')
+                $('.modal-body').html(`<p class="text-center">You must be logged in to rate movies!</p>`)
+                $('#warningModal').modal({
+                    show: true
+                })
+            }
         }
     })
 

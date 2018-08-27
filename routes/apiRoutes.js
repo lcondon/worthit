@@ -20,7 +20,7 @@ apiRouter.get('/movies', function (req, res) {
       res.json({ redirect: '/movies?s=' + results.dataValues.title })
 
     }).catch(function (err) {
-      res.json(false)
+      res.sendStatus(404);
     })
   } else {
     db.Movie.findAll().then(function (results) {
@@ -34,7 +34,7 @@ apiRouter.post('/movies', function (req, res) {
     request({ url: 'http://www.omdbapi.com/?apikey=trilogy&t=' + req.query.s }, function (err, response, body) {
       var body1 = JSON.parse(body);
       if (body1.Error) {
-        res.json(false);
+        res.sendStatus(404);
       } else {
         var movie = {
           title: body1.Title,
@@ -78,7 +78,7 @@ apiRouter.post('/movies', function (req, res) {
           db.Movie.create(movie).then(function (results2) {
             res.send({ redirect: '/movies?s=' + results2.title });
           }).catch(function (err) {
-            res.json(false)
+            res.sendStatus(500);
           })
         })
       }
@@ -115,7 +115,7 @@ apiRouter.post('/ratings', function (req, res) {
     })
 
   } else {
-    res.json(false)
+    res.sendStatus(403);
   }
 })
 
@@ -131,7 +131,7 @@ apiRouter.put('/ratings', function (req, res) {
         res.json(result)
       })
   } else {
-    res.json(false)
+    res.sendStatus(403);
   }
 })
 
@@ -174,7 +174,7 @@ apiRouter.post('/users', function (req, res) {
       res.json(results);
     })
     .catch(function (err) {
-      res.json(false);
+      res.sendStatus(500);
     });
 });
 
@@ -207,7 +207,7 @@ apiRouter.put('/users', function (req, res) {
 
     })
   } else {
-    res.json(false)
+    res.sendStatus(403);
   }
 })
 

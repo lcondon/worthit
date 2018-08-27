@@ -54,7 +54,7 @@ htmlRouter.get('/movies', function (req, res) {
                 movies: { info: theMovie, comments: comments }
               })
             }).catch(function (err) {
-              res.json(false)
+              res.sendStatus(500);
             })
         } else {
           res.render('movieNoComment', {
@@ -68,10 +68,10 @@ htmlRouter.get('/movies', function (req, res) {
         })
       })
     }).catch(function (err) {
-      res.json(false)
+      res.sendStatus(404);
     })
   } else {
-    res.json(false);
+    res.redirect('/movies/worthit');
   }
 });
 
