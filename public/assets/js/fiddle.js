@@ -237,7 +237,6 @@ function favorite(event) {
         }
     }).then(function (data) {
         $(".favStar").toggleClass('favorited')
-        $(document).on('click', '.favStar', function (event) { favorite(event) })
     })
 }
 
