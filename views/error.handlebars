@@ -1,5 +1,4 @@
-<body id="{{movies.color}}" class="whiteTxt">
-
+<body id="movieColorBad" class="whiteTxt">
     <nav class="navbar nav" id="contentPageHeader">
         <span>
             <a href="/">
@@ -24,39 +23,19 @@
     </nav>
 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8">
-                <h1 id="searchTitle">{{movies.pageTitle}}</h1>
-            </div>
-            <div class="col-sm-2"></div>
-        </div>
-
-        {{#each movies.results}}
-        <div class="row" id="searchResultsRow">
+        <div class="row" id="errorRow">
             <div class="col-sm-2"></div>
             <div class="col-sm-8 justify-content-center">
-                <div class="row w-100" id="searchResultsReturns">
-                    <div class="col-sm-3 image-cropper align-self-center">
-                        <a href="/movies?s={{title}}">
-
-                            <img class="image-fluid movieImageCircle" src="{{poster}}">
-
-                        </a>
-                    </div>
-                    <div class="col-sm-9 align-self-center">
-                        <p class="nowrap" id="searchResultsOrdinal">{{inc @index}}. {{title}}</p>&nbsp;&nbsp;&nbsp;
-                        <p class="nowrap">Critic Rating: {{ratings.critic}}</p>&nbsp;&nbsp;&nbsp;
-                        <p class="nowrap">General Audience Rating: {{ratings.general}}</p>
-                        <p>Plot Summary: {{synopsis}}</p>
-                    </div>
-                </div>
+                <h1 id="errorHeader">Error!</h1>
+                <h3 id="errorMessage">An error has occured:</h3>
             </div>
             <div class="col-sm-2"></div>
         </div>
-        {{/each}}
     </div>
+
     </div>
+
+    <!-- Modal -->
     <div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="warningModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

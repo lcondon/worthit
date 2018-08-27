@@ -21,21 +21,22 @@ htmlRouter.get('/movies', function (req, res) {
   if (req.query.s) {
     var options = { $like: '%' + req.query.s + '%' };
     db.Movie.findOne({ where: { title: options } }).then(function (result) {
-      console.log(result.dataValues)
-      var theMovie = result.dataValues;
-      db.Rating.findAll({ where: { movie_id: result.id }, order: [['createdAt', 'DESC']] }).then(function (comments) {
-        var totalRatings = comments.length;
-        var worthItRatings = 0;
-        for (var i = 0; i < totalRatings; i++) {
-          if (comments.rating == true) {
-            worthItRatings++;
-          }
-        }
-        var userRating = (worthItRatings / totalRatings) * 100;
-        if (comments) {
 
+      var theMovie = result.dataValues;
+      console.log(theMovie)
+      db.Rating.findAll({ where: { movie_id: result.id }, order: [['createdAt', 'DESC']] }).then(function (comments) {
+
+        if (comments.length > 0) {
+          var totalRatings = comments.length;
+          var worthItRatings = 0;
+          for (var i = 0; i < totalRatings; i++) {
+            if (comments[i].rating == true) {
+              worthItRatings++;
+            }
+          }
+          var userRating = parseInt((worthItRatings / totalRatings) * 100) || 0;
           db.Movie.update({
-            differential: userRating - result.ratings.critic || result.ratings.general - result.ratings.critic,
+            differential: userRating - result.ratings.critic || result.ratings.general - result.ratings.critic || 0,
             ratings: {
               critic: result.ratings.critic,
               general: result.ratings.general,
@@ -52,6 +53,10 @@ htmlRouter.get('/movies', function (req, res) {
             }).catch(function (err) {
               res.json(false)
             })
+        } else {
+          res.render('movieNoComment', {
+            movies: { info: theMovie }
+          })
         }
 
       }).catch(function (err) {
@@ -126,13 +131,25 @@ htmlRouter.post('/login',
 );
 
 htmlRouter.get("/favorites", function (req, res) {
-  // db.Example.findAll({}).then(function (dbExamples) {
-  //   res.render("index", {
-  //     msg: "Welcome!",
-  //     examples: dbExamples
-  //   });
-  // });
-  res.send(":)");
+  if (req.isAuthenticated()) {
+    var favorites = JSON.parse(req.user.dataValues.favorites)
+    db.Movie.findAll({
+      where:
+      {
+        id: { [db.Sequelize.Op.or]: favorites }
+      }
+    }).then(function (results) {
+      res.render("results", {
+        movies: {
+          results: results,
+          color: 'movieColorNeutral',
+          pageTitle: 'Your favorites'
+        }
+      });
+    });
+  } else {
+    res.json(false)
+  }
 });
 
 htmlRouter.get('/auth', function (req, res) {
@@ -142,6 +159,10 @@ htmlRouter.get('/auth', function (req, res) {
   } else {
     res.redirect('/')
   }
+})
+
+htmlRouter.get('/error', function (req, res) {
+  res.render('error')
 })
 
 htmlRouter.get('/logout', function (req, res) {
