@@ -118,7 +118,10 @@ $(document).on('keyup', bind_to, function (event) {
                             window.location.href = data.redirect;
                         }
                         else {
-                            alert(`We couldn't find that movie! Please update your search.`);
+                            $('.modal-body').html(`<p class="text-center">We couldn't find that movie! Please update your search.</p>`)
+                            $('#warningModal').modal({
+                                show: true
+                            })
                             $(".searchIconNM").removeClass("flash");
                             $("#mainPageSplash").removeClass("spinLoading");
                         }
@@ -135,7 +138,7 @@ $(document).on('keyup', bind_to, function (event) {
     }
 });
 
-function register(event){
+function register(event) {
     $(document).off('click', '#registerButton')
     var email = $('#input2EmailForm').val().trim();
     var p1 = $('#input2PasswordForm').val();
@@ -154,17 +157,17 @@ function register(event){
             }
             $.post('/api/users', user, function (results) {
                 if (results) {
-                $('.modal-title').text('Success')
-                $('.modal-body').html(`<p class="text-center">You are all signed up!</p>`)
-                $('#warningModal').modal({
-                    show: true
-                })
-            } else {
-                $('.modal-body').html(`<p class="text-center">It seems like you are already registered on WorthIt!</p>`)
-                $('#warningModal').modal({
-                    show: true
-                })
-            }
+                    $('.modal-title').text('Success')
+                    $('.modal-body').html(`<p class="text-center">You are all signed up!</p>`)
+                    $('#warningModal').modal({
+                        show: true
+                    })
+                } else {
+                    $('.modal-body').html(`<p class="text-center">It seems like you are already registered on WorthIt!</p>`)
+                    $('#warningModal').modal({
+                        show: true
+                    })
+                }
             })
         } else {
             $('.modal-body').html(`<p class="text-center">It seems like you didn't enter a valid email!</p>`)
@@ -179,10 +182,10 @@ function register(event){
             show: true
         })
     }
-    $(document).on('click', '#registerButton', function (event) {register(event)})
+    $(document).on('click', '#registerButton', function (event) { register(event) })
 }
 
-$(document).on('click', '#registerButton', function (event) {register(event)})
+$(document).on('click', '#registerButton', function (event) { register(event) })
 
 $(document).on('click', '#loginBtn', function (event) {
     // $(document).off('click', '#loginBtn');
