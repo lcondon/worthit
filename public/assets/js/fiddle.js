@@ -234,15 +234,12 @@ function favorite(event) {
 }
 
 $(document).on('click', '#btn-apple', function (event) {
-    $(document).off('click', '#btn-apple');
     event.preventDefault();
     var rating;
-    console.log($('#question1').attr('checked'))
-    console.log($('#question2').attr('checked'))
     var comment = $('#tallerComments').val().trim();
-    if ($('#question1').attr('checked') === 'checked') {
+    if ($('#question1').attr('checked') == 'checked') {
         rating = true
-    } else if ($('#question2').attr('checked') === 'checked') {
+    } else if ($('#question2').attr('checked') == 'checked') {
         rating = false
     }
     $.ajax({
@@ -255,8 +252,8 @@ $(document).on('click', '#btn-apple', function (event) {
         }
     }).then(function (data) {
         if (data) {
-            $(document).off('keyup', bind_to);
-            location.reload(true);
+            $(document).off('click', '#btn-apple');
+            location.reload();
         } else {
             $('.modal-title').text('Error')
             $('.modal-body').html(`<p class="text-center">You must be logged in to rate movies!</p>`)
