@@ -23,7 +23,7 @@ app.engine("handlebars", bars({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://radiant-anchorage-14785.herokuapp.com');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -44,9 +44,6 @@ Handlebars.registerHelper("inc", function (value, options) {
 });
 
 var syncOptions = { force: true };
-
-db.User.sync(syncOptions);
-db.Rating.sync(syncOptions);
 
 db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
