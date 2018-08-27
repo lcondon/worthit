@@ -223,9 +223,6 @@ function favorite(event) {
         url: '/api/users',
         type: 'PUT',
         data: { movieId: movieId },
-        success: function(){
-            $(".favStar").toggleClass('favorited')
-        },
         statusCode: {
             403: function(){
                 $('.modal-title').text('Error')
