@@ -45,6 +45,9 @@ Handlebars.registerHelper("inc", function (value, options) {
 
 var syncOptions = { force: true };
 
+db.User.sync(syncOptions);
+db.Rating.sync(syncOptions);
+
 db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
     console.log("Listening on port " + PORT);
