@@ -179,13 +179,13 @@ $(document).on('click', '#loginBtn', function (event) {
     var email = $('#email').val().trim();
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     // if (regex.test(email)) {
-
+    var password = $('#password').val()
     $.ajax({
         url: '/login',
         type: 'POST',
         data: {
             email: email,
-            password: $('#password').val()
+            password: password
         },
         success: function (response, status) {
             window.location.href = response.redirect;
@@ -243,6 +243,7 @@ function favorite(event) {
 $(document).on('click', '#btn-apple', function (event) {
     event.preventDefault();
     var rating;
+    var movieID = $('.favStar').attr('movie');
     var comment = $('#tallerComments').val().trim();
     if ($('#question1').attr('checked') == 'checked') {
         rating = true
@@ -254,7 +255,7 @@ $(document).on('click', '#btn-apple', function (event) {
         method: 'POST',
         data: {
             rating: rating,
-            movie_id: $('.favStar').attr('movie'),
+            movie_id: movieID,
             comment: comment
         },
         success: function() {
