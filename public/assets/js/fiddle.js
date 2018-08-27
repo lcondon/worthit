@@ -196,12 +196,13 @@ $(document).on('click', '#loginBtn', function (event) {
 })
 
 $(document).on('click', '#question1', function (event) {
+    event.preventDefault();
     $('#question1').attr('checked', 'checked');
     $('#question2').removeAttr('checked');
 })
 
 $(document).on('click', '#question2', function (event) {
-    
+    event.preventDefault();
     $('#question2').attr('checked', 'checked');
     $('#question1').removeAttr('checked');
 
@@ -236,6 +237,8 @@ $(document).on('click', '#btn-apple', function (event) {
     $(document).off('click', '#btn-apple');
     event.preventDefault();
     var rating;
+    console.log($('#question1').attr('checked'))
+    console.log($('#question2').attr('checked'))
     var comment = $('#tallerComments').val().trim();
     if ($('#question1').attr('checked') === 'checked') {
         rating = true
