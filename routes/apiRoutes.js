@@ -185,7 +185,7 @@ apiRouter.put('/users', function (req, res) {
       console.log(req)
       if (favoriteValue == null) {
         db.User.update({
-          favorites: "[" + "req.body.movieId" + "]"
+          favorites: "[" + `${req.body.movieId}` + "]"
         }, {
             where: {
               id: req.user.dataValues.id
