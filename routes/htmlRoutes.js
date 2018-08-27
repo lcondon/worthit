@@ -25,13 +25,16 @@ htmlRouter.get('/movies', function (req, res) {
       var theMovie = result.dataValues;
       console.log(theMovie)
       db.Rating.findAll({ where: { movie_id: result.id }, order: [['createdAt', 'DESC']] }).then(function (comments) {
-
+        var comments = comments;
         if (comments.length > 0) {
           var totalRatings = comments.length;
           var worthItRatings = 0;
           for (var i = 0; i < totalRatings; i++) {
             if (comments[i].rating == true) {
               worthItRatings++;
+              comments[i].rating = 'WorthIt'
+            } else {
+              comments[i].rating = 'Not WorthIt'
             }
           }
           var userRating = parseInt((worthItRatings / totalRatings) * 100) || 0;
@@ -40,7 +43,7 @@ htmlRouter.get('/movies', function (req, res) {
             ratings: {
               critic: result.ratings.critic,
               general: result.ratings.general,
-              worthit: userRating || null
+              worthit: userRating
             }
           }, {
               where: {
@@ -148,7 +151,9 @@ htmlRouter.get("/movies/favorites", function (req, res) {
       });
     });
   } else {
-    res.json(false)
+    res.render('error', {
+      message: 'You must be logged in to visit your favorites!'
+    })
   }
 });
 

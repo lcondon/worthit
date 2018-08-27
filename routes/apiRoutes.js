@@ -95,10 +95,10 @@ apiRouter.post('/ratings', function (req, res) {
     db.Rating.findOrCreate({
       where: {
         user_id: req.user.dataValues.id,
+        user_name: req.user.dataValues.name.first + " " + req.user.dataValues.name.last,
         movie_id: req.body.movie_id
       }, defaults: { rating: req.body.rating, comment: req.body.comment }
     }).then(function (query) {
-      console.log(query)
       db.Rating.update(
         {
           rating: req.body.rating,

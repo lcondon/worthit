@@ -522,6 +522,48 @@ button {
 	border-color: #1CA347;
 }
 
+.btn-favorites {
+	background-color: #5F0F40;
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	height: auto;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-color: #5F0F40;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.btn-favorites:hover,
+.btn-favorites:focus {
+	color: #fff;
+	background-color: #4d0d34;
+	border-color: #4d0d34;
+}
+
+.btn-logout {
+	background-color: #9C0D38;
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	height: auto;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-color: #9C0D38;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.btn-logout:hover,
+.btn-logout:focus {
+	color: #fff;
+	background-color: #870b30;
+	border-color: #870b30;
+}
+
 .bTxt {
 	color: black;
 }
@@ -604,11 +646,13 @@ button {
   }
 
   .commentVerdict {
+	width: 100%;
 	font-family: 'Alfa Slab One', cursive;
 	font-size: 22px;
 	padding-left: 15px;
 	padding-right: 15px;
   }
+  
 
   #commentVerdictOut {
 	font-family: 'Alfa Slab One', cursive;

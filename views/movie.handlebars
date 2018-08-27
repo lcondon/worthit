@@ -202,10 +202,10 @@
 
                         <div class="card card-body commentsBlack">
                             <div class="row">
-                                <div class="commentAuthor">{{user_id}}</div>
+                                <div class="commentAuthor">{{user_name}}</div>
                                 <div class="commentText">{{comment}}</div>
-                                <div class="commentVerdict">Verdict:
-                                    <span id="commentVerdictOut">{{rating}}</span>
+                                <div class="commentVerdict clearfix"><span class="float-left commentDate">Verdict: <span id="commentVerdictOut">{{rating}}</span></span>
+                                    <span class="p-0 float-right commentDate">{{createdAt}}</span>
                                 </div>
                             </div>
                         </div>
