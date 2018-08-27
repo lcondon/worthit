@@ -79,19 +79,12 @@ $(document).ready(function () {
     }
 })
 
-// $(".movieImageCircle").ready(function(){
-//     if ($(this).attr("src") == "N/A"){
-//         $(this).attr("src", "/images/notfoundplaceholder.png") 
-//     }
-// })
-
 var bind_to = '#searchBlack';
 
 $(document).on('keyup', bind_to, function (event) {
-
     event.preventDefault();
     if (event.keyCode == 13) {
-        $(document).off('keyup', '#searchBlack');
+        $(document).unbind('keyup', '#searchBlack');
         var searchTerm = $(this).val().trim()
         if (searchTerm !== '') {
             $("#mainPageSplash").removeClass("rollIn").addClass("spinLoading");
@@ -102,16 +95,6 @@ $(document).on('keyup', bind_to, function (event) {
             $.get(url).done(function (result) {
                 if (result.redirect) {
                     window.location.href = result.redirect;
-                    // $.post(url).done(function (data, text) {
-                    //     if (data.redirect) {
-                    //         window.location.href = data.redirect;
-                    //     }
-                    //     else {
-                    //         alert(`We couldn't find that movie! Please update your search.`);
-                    //         $(".searchIconNM").removeClass("flash");
-                    //         $("#mainPageSplash").removeClass("spinLoading");
-                    //     }
-                    // });
                 } else {
                     $.post(url).done(function (data, text) {
                         if (data.redirect) {
@@ -126,15 +109,10 @@ $(document).on('keyup', bind_to, function (event) {
                             $("#mainPageSplash").removeClass("spinLoading");
                         }
                     });
-                    // alert(`We couldn't find that movie! Please update your search.`);
-                    // $(".searchIconNM").removeClass("flash");
-                    // $("#mainPageSplash").removeClass("spinLoading");
-
                 }
             })
-
         }
-        $(document).off('keyup', bind_to);
+        $(document).bind('keyup', '#searchBlack');
     }
 });
 
@@ -163,6 +141,7 @@ function register(event) {
                         show: true
                     })
                 } else {
+                    $('.modal-title').text('Error')
                     $('.modal-body').html(`<p class="text-center">It seems like you are already registered on WorthIt!</p>`)
                     $('#warningModal').modal({
                         show: true
@@ -170,6 +149,7 @@ function register(event) {
                 }
             })
         } else {
+            $('.modal-title').text('Error')
             $('.modal-body').html(`<p class="text-center">It seems like you didn't enter a valid email!</p>`)
             $('#warningModal').modal({
                 show: true
@@ -177,6 +157,7 @@ function register(event) {
         }
     } else {
         event.preventDefault();
+        $('.modal-title').text('Error')
         $('.modal-body').html(`<p class="text-center">It seems like your passwords do not match!</p>`)
         $('#warningModal').modal({
             show: true
@@ -205,7 +186,8 @@ $(document).on('click', '#loginBtn', function (event) {
             window.location.href = response.redirect;
         },
         error: function (response, status) {
-            $('.modal-body').html(`<p class="text-center">It seems like you haven't signed up for an account yet!</p>`)
+            $('.modal-title').text('Error')
+            $('.modal-body').html(`<p class="text-center">Something went wrong! Please try again.</p>`)
             $('#warningModal').modal({
                 show: true
             })
@@ -227,26 +209,30 @@ $(document).on('click', '#question2', function (event) {
 
 })
 
-$(document).on('click', '.favStar', function (event) {
+$(document).on('click', '.favStar', function (event) { favorite(event) })
+
+function favorite(event) {
     $(document).off('click', ".favStar");
     event.preventDefault();
-    var movieId = $(this).attr('movie');
+    var movieId = $('.favStar').attr('movie');
+    console.log(movieId)
     $.ajax({
         url: '/api/users',
-        method: 'PUT',
+        type: 'PUT',
         data: { movieId: movieId }
     }).then(function (data) {
         if (data) {
             $(".favStar").toggleClass('favorited')
         } else {
+            $('.modal-title').text('Error')
             $('.modal-body').html(`<p class="text-center">You must be logged in to favorite movies!</p>`)
             $('#warningModal').modal({
                 show: true
             })
         }
-
+        $(document).on('click', '.favStar', function (event) { favorite(event) })
     })
-})
+}
 
 $(document).on('click', '#btn-apple', function (event) {
     $(document).off('click', '#btn-apple');
@@ -271,6 +257,7 @@ $(document).on('click', '#btn-apple', function (event) {
             $(document).off('keyup', bind_to);
             location.reload(true);
         } else {
+            $('.modal-title').text('Error')
             $('.modal-body').html(`<p class="text-center">You must be logged in to rate movies!</p>`)
             $('#warningModal').modal({
                 show: true

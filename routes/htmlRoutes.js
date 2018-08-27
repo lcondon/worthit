@@ -123,14 +123,14 @@ htmlRouter.get("/login", function (req, res) {
 htmlRouter.post('/login',
   passport.authenticate('local'), function (req, res) {
     if (req.isAuthenticated()) {
-      res.json({ redirect: '/movies/categories' })
+      res.json({ redirect: '/movies/favorites' })
     } else {
       res.json({ redirect: '/login' })
     }
   }
 );
 
-htmlRouter.get("/favorites", function (req, res) {
+htmlRouter.get("/movies/favorites", function (req, res) {
   if (req.isAuthenticated()) {
     var favorites = JSON.parse(req.user.dataValues.favorites)
     db.Movie.findAll({
