@@ -17,7 +17,6 @@ apiRouter.get('/movies', function (req, res) {
           options
       }
     }).then(function (results) {
-      console.log(results)
       res.json({ redirect: '/movies?s=' + results.dataValues.title })
 
     }).catch(function (err) {
@@ -93,15 +92,28 @@ apiRouter.post('/movies', function (req, res) {
 
 apiRouter.post('/ratings', function (req, res) {
   if (req.isAuthenticated()) {
-    db.Rating.create({
-      user_id: req.user.dataValues.id,
-      movie_id: req.body.movie_id,
-      rating: req.body.rating,
-      comment: req.body.comment
+    db.Rating.findOrCreate({
+      where: {
+        user_id: req.user.dataValues.id,
+        movie_id: req.body.movie_id
+      }, defaults: { rating: req.body.rating, comment: req.body.comment }
+    }).then(function (query) {
+      console.log(query)
+      db.Rating.update(
+        {
+          rating: req.body.rating,
+          comment: req.body.comment
 
-    }).then(function (result) {
-      res.json(result)
+        }, {
+          where: {
+            user_id: req.user.dataValues.id,
+            movie_id: req.body.movie_id
+          }
+        }).then(function (result) {
+          res.json(result)
+        })
     })
+
   } else {
     res.json(false)
   }
@@ -162,16 +174,13 @@ apiRouter.post('/users', function (req, res) {
       res.json(results);
     })
     .catch(function (err) {
-      console.log(err, req.body);
-      res.end();
+      res.json(false);
     });
 });
 
 apiRouter.put('/users', function (req, res) {
-  console.log(req.isAuthenticated())
   if (req.isAuthenticated()) {
     db.User.findOne({ where: { id: req.user.dataValues.id } }).then(function (results) {
-      console.log(results.dataValues.favorites)
       var favoriteValue = results.dataValues.favorites;
       if (favoriteValue == null) {
         db.User.update({
@@ -184,7 +193,7 @@ apiRouter.put('/users', function (req, res) {
       } else {
         favoriteValue = JSON.parse(favoriteValue)
         if (_.indexOf(favoriteValue, req.body.movieId) < 0) {
-          favoriteValue.push(req.body.movieId)
+          favoriteValue.push(parseInt(req.body.movieId))
         }
         db.User.update({
           favorites: JSON.stringify(favoriteValue)

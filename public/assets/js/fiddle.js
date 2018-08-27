@@ -25,14 +25,12 @@ function getGeneralScore(generalScore, cb) {
     } else {
         $('#generalSwitch').text('.progress.general .progress-right .progress-bar{animation: generalLoad 1.5s linear forwards 1.8s;}');
         gScore = generalScore * 360 / 100
-        console.log(gScore)
         $('#generalCircle').text(generalScore + "%")
     }
     cb(cScore)
 }
 
 function getUserScore(userScore, cb) {
-    console.log(typeof userScore * 2)
     var testScore = userScore * 2;
     if (Number.isNaN(testScore)) {
         $('#userCircle').text('None')
@@ -42,7 +40,6 @@ function getUserScore(userScore, cb) {
     } else {
         $('#userSwitch').text('.progress.user .progress-right .progress-bar{animation: generalLoad 1.5s linear forwards 1.8s;}');
         uScore = userScore * 360 / 100
-        console.log(uScore)
         $('#userCircle').text(userScore + "%")
     }
     cb(cScore)
@@ -69,7 +66,6 @@ function changeBackground() {
 }
 
 $(document).ready(function () {
-    console.log(window.location.pathname);
     $('#searchBlack').val('');
     getCriticScore(parseFloat($("#criticCircle").attr("score")), changeCritic);
     getGeneralScore(parseFloat($("#generalCircle").attr("score")), changeGeneral);
@@ -92,26 +88,21 @@ $(document).ready(function () {
 var bind_to = '#searchBlack';
 
 $(document).on('keyup', bind_to, function (event) {
-    $(document).off('keyup', '#searchBlack');
-    event.preventDefault();
-    console.log(event)
-    if (event.keyCode == 13) {
 
+    event.preventDefault();
+    if (event.keyCode == 13) {
+        $(document).off('keyup', '#searchBlack');
         var searchTerm = $(this).val().trim()
         if (searchTerm !== '') {
             $("#mainPageSplash").removeClass("rollIn").addClass("spinLoading");
             $(".searchIconNM").addClass("flash");
             // searchTerm = searchTerm.replace(/[`–~!@#$%^&*()_|+\=?;:",.<>\{\}\[\]\\\/]/gi, '');
-            console.log(searchTerm)
             // if (searchTerm !== ''){
             var url = '/api/movies?s=' + searchTerm;
             $.get(url).done(function (result) {
                 if (result.redirect) {
-                    console.log(result)
                     window.location.href = result.redirect;
                     // $.post(url).done(function (data, text) {
-                    //     console.log(data);
-                    //     console.log(text);
                     //     if (data.redirect) {
                     //         window.location.href = data.redirect;
                     //     }
@@ -123,8 +114,6 @@ $(document).on('keyup', bind_to, function (event) {
                     // });
                 } else {
                     $.post(url).done(function (data, text) {
-                        console.log(data);
-                        console.log(text);
                         if (data.redirect) {
                             window.location.href = data.redirect;
                         }
@@ -146,12 +135,8 @@ $(document).on('keyup', bind_to, function (event) {
     }
 });
 
-$(document).on(`focusout`, bind_to, function (event) {
-    $('#searchBlack').val('');
-})
-
-$(document).on('click', '#registerButton', function (event) {
-    $(document).off('click', '#registerButton');
+function register(event){
+    $(document).off('click', '#registerButton')
     var email = $('#input2EmailForm').val().trim();
     var p1 = $('#input2PasswordForm').val();
     var p2 = $('#input2Password2Form').val();
@@ -168,32 +153,61 @@ $(document).on('click', '#registerButton', function (event) {
                 password: $('#input2PasswordForm').val()
             }
             $.post('/api/users', user, function (results) {
-                alert('Success!')
+                if (results) {
+                $('.modal-title').text('Success')
+                $('.modal-body').html(`<p class="text-center">You are all signed up!</p>`)
+                $('#warningModal').modal({
+                    show: true
+                })
+            } else {
+                $('.modal-body').html(`<p class="text-center">It seems like you are already registered on WorthIt!</p>`)
+                $('#warningModal').modal({
+                    show: true
+                })
+            }
             })
         } else {
-            alert('Invalid email!')
+            $('.modal-body').html(`<p class="text-center">It seems like you didn't enter a valid email!</p>`)
+            $('#warningModal').modal({
+                show: true
+            })
         }
     } else {
-        alert('Passwords do not match!')
+        event.preventDefault();
+        $('.modal-body').html(`<p class="text-center">It seems like your passwords do not match!</p>`)
+        $('#warningModal').modal({
+            show: true
+        })
     }
-})
+    $(document).on('click', '#registerButton', function (event) {register(event)})
+}
+
+$(document).on('click', '#registerButton', function (event) {register(event)})
 
 $(document).on('click', '#loginBtn', function (event) {
-    $(document).off('click', '#loginBtn');
+    // $(document).off('click', '#loginBtn');
     event.preventDefault();
-    console.log(event)
     var email = $('#email').val().trim();
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     // if (regex.test(email)) {
-    $.post('/login', {
-        email: email,
-        password: $('#password').val()
-    }).then(function (data) {
-        window.location.href = data.redirect;
+
+    $.ajax({
+        url: '/login',
+        type: 'POST',
+        data: {
+            email: email,
+            password: $('#password').val()
+        },
+        success: function (response, status) {
+            window.location.href = response.redirect;
+        },
+        error: function (response, status) {
+            $('.modal-body').html(`<p class="text-center">It seems like you haven't signed up for an account yet!</p>`)
+            $('#warningModal').modal({
+                show: true
+            })
+        }
     })
-    // } else {
-    // alert('Invalid email or password!')
-    // }
 })
 
 $(document).on('click', '#question1', function (event) {
@@ -214,31 +228,26 @@ $(document).on('click', '.favStar', function (event) {
     $(document).off('click', ".favStar");
     event.preventDefault();
     var movieId = $(this).attr('movie');
-    console.log(event)
     $.ajax({
         url: '/api/users',
         method: 'PUT',
         data: { movieId: movieId }
     }).then(function (data) {
-        console.log(data)
         if (data) {
             $(".favStar").toggleClass('favorited')
         } else {
-            alert('must be logged in to do that')
+            $('.modal-body').html(`<p class="text-center">You must be logged in to favorite movies!</p>`)
+            $('#warningModal').modal({
+                show: true
+            })
         }
+
     })
-    // $.post('/login', {email: email,
-    //         password: $('#password').val()}).then(function(data){
-    //             window.location.href = data.redirect;
-    //         })
 })
 
 $(document).on('click', '#btn-apple', function (event) {
     $(document).off('click', '#btn-apple');
     event.preventDefault();
-    console.log($('.favStar').attr('movie'))
-    console.log($('#question1').attr('value'))
-    console.log($('#question2').attr('value'))
     var rating;
     var comment = $('#tallerComments').val().trim();
     if ($('#question1').attr('value') === 'selected') {
@@ -257,13 +266,13 @@ $(document).on('click', '#btn-apple', function (event) {
     }).then(function (data) {
         if (data) {
             $(document).off('keyup', bind_to);
-            location.reload();
+            location.reload(true);
         } else {
-            alert('must be logged in')
+            $('.modal-body').html(`<p class="text-center">You must be logged in to rate movies!</p>`)
+            $('#warningModal').modal({
+                show: true
+            })
         }
     })
-    // $.post('/login', {email: email,
-    //         password: $('#password').val()}).then(function(data){
-    //             window.location.href = data.redirect;
-    //         })
+
 })
