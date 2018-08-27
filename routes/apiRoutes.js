@@ -182,6 +182,7 @@ apiRouter.put('/users', function (req, res) {
   if (req.isAuthenticated()) {
     db.User.findOne({ where: { id: req.user.dataValues.id } }).then(function (results) {
       var favoriteValue = results.dataValues.favorites;
+      console.log(req)
       if (favoriteValue == null) {
         db.User.update({
           favorites: "[" + req.body.movieId + "]"
@@ -192,8 +193,8 @@ apiRouter.put('/users', function (req, res) {
           })
       } else {
         favoriteValue = JSON.parse(favoriteValue)
-        if (_.indexOf(favoriteValue, req.body.movieId) < 0) {
-          favoriteValue.push(parseInt(req.body.movieId))
+        if (favoriteValue.indexOf(req.body.movieId) < 0) {
+          favoriteValue.push(req.body.movieId)
         }
         db.User.update({
           favorites: JSON.stringify(favoriteValue)
