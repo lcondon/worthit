@@ -126,7 +126,7 @@ htmlRouter.get("/login", function (req, res) {
 htmlRouter.post('/login',
   passport.authenticate('local'), function (req, res) {
     if (req.isAuthenticated()) {
-      res.json({ redirect: '/movies/favorites' })
+      res.json({ redirect: '/' })
     } else {
       res.json({ redirect: '/login' })
     }
